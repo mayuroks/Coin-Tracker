@@ -5,10 +5,11 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "android.tracker.coin"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -29,4 +30,8 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.robinhood.spark:spark:1.1.2'
     testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.android.support:multidex:1.0.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
 }

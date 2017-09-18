@@ -9,4 +9,8 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+    <style name="NormalText">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+    </style>
+
 </resources>

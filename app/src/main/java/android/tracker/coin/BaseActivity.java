@@ -11,6 +11,8 @@ import android.view.ViewStub;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+
 public class BaseActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -33,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
         ViewStub stub = (ViewStub) baseLayout.findViewById(R.id.container);
         stub.setLayoutResource(layoutResID);
         stub.inflate();
-        // Butterknife.bind(this);
+        ButterKnife.bind(this);
     }
 
     public void initToolbar(String title) {
