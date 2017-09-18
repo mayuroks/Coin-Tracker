@@ -20,7 +20,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
 
-public class CubicLineChartActivity extends AppCompatActivity {
+public class CubicLineChartActivity extends BaseActivity {
 
     private LineChart mChart;
 
@@ -30,6 +30,7 @@ public class CubicLineChartActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
+        initToolbar("Coin Graph");
 
         mChart = (LineChart) findViewById(R.id.chart);
         mChart.setBackgroundColor(Color.TRANSPARENT);
