@@ -14,6 +14,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void goToCubicLineChart() {
-        startActivity(new Intent(this, CubicLineChartActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 }

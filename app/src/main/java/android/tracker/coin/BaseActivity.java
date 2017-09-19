@@ -1,5 +1,6 @@
 package android.tracker.coin;
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView tvToolbarTitle;
     private RelativeLayout baseLayout;
+    public APIService service = RestClient.getAPIService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,11 @@ public class BaseActivity extends AppCompatActivity {
         stub.setLayoutResource(layoutResID);
         stub.inflate();
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void initToolbar(String title) {
