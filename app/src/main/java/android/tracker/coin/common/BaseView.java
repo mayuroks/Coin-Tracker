@@ -6,6 +6,8 @@ package android.tracker.coin.common;
 
 public interface BaseView<T> {
 
+    void initView();
+
     void setPresenter(T presenter);
 
 }

@@ -4,6 +4,7 @@ import android.tracker.coin.common.BasePresenter;
 import android.tracker.coin.common.BaseView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Mayur on 19-09-2017.
@@ -21,7 +22,7 @@ public interface HomeContract {
 
     interface Presenter extends BasePresenter {
 
-        void getTrackedCoinData(ArrayList<String> trackedCoins);
+        void getTrackedCoinData(HashMap params);
 
     }
 
