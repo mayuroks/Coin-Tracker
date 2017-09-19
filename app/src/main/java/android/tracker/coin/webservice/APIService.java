@@ -1,4 +1,4 @@
-package android.tracker.coin;
+package android.tracker.coin.webservice;
 
 import android.tracker.coin.models.TestPostModel;
 

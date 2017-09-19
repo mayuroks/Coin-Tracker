@@ -9,8 +9,9 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
-    <style name="NormalText">
+    <style name="ToolbarTitleText">
         <item name="fontPath">fonts/lato_bold.ttf</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

@@ -1,4 +1,4 @@
-package android.tracker.coin;
+package android.tracker.coin.webservice;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -10,9 +10,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
 
-    // FIXME change base URL
+    private static String API_BASE_URL = "https://min-api.cryptocompare.com/data/";
+
     private static Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl(API_BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build();
