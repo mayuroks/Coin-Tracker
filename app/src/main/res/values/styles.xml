@@ -14,4 +14,20 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="SectionHeaderText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="CoinTagText">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ClickableText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 </resources>

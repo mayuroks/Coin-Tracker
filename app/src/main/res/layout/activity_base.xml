@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="android.tracker.coin.BaseActivity">
+    tools:context="android.tracker.coin.coin.tracker.zxr.BaseActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -43,6 +43,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
         android:layout_below="@+id/toolbar"/>
 
 </RelativeLayout>
