@@ -1,8 +1,16 @@
 package coin.tracker.zxr.home;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import butterknife.BindView;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.data.Repository;
@@ -10,16 +18,6 @@ import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.utils.Injection;
 import coin.tracker.zxr.utils.schedulers.SchedulerProvider;
-
-import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import butterknife.BindView;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -78,6 +76,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             rvMyCoins.setAdapter(myCoinsAdapter);
             rvMyCoins.setLayoutManager(layoutManager);
             rvMyCoins.setHasFixedSize(true);
+            RecyclerView.ItemDecoration dividerItemDecoration =
+                    new RVDividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.bg_rv_separator));
+            rvMyCoins.addItemDecoration(dividerItemDecoration);
         } else {
             // TODO show meaningful error
         }
