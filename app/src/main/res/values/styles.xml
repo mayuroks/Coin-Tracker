@@ -35,16 +35,10 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
     
-    <style name="IncrementText">
-        <item name="fontPath">fonts/lato_regular.ttf</item>
+    <style name="DeltaText">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
         <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textColor">@color/colorChangeIncrement</item>
-    </style>
-
-    <style name="DecrementText">
-        <item name="fontPath">fonts/lato_regular.ttf</item>
-        <item name="android:textSize">@dimen/text_small</item>
-        <item name="android:textColor">@color/colorChangeDecrement</item>
     </style>
 
     <style name="NormalText">

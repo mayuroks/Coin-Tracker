@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import coin.tracker.zxr.models.RawPrice;
 
 /**
  * Created by Mayur on 19-09-2017.
@@ -21,11 +22,15 @@ import butterknife.ButterKnife;
 
 public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHolder> {
 
-    ArrayList<DisplayPrice> items;
+    ArrayList<DisplayPrice> displayPrices;
+    ArrayList<RawPrice> rawPrices;
     Context context;
 
-    public MyCoinsAdapter(Context context, ArrayList<DisplayPrice> items) {
-        this.items = items;
+    public MyCoinsAdapter(Context context,
+                          ArrayList<DisplayPrice> displayPrices,
+                          ArrayList<RawPrice> rawPrices) {
+        this.displayPrices = displayPrices;
+        this.rawPrices = rawPrices;
         this.context = context;
     }
 
@@ -39,7 +44,8 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DisplayPrice displayPrice = items.get(position);
+        DisplayPrice displayPrice = displayPrices.get(position);
+        RawPrice rawPrice = rawPrices.get(position);
 
         if (displayPrice.getPRICE() != null) {
             holder.tvPrice.setText(displayPrice.getPRICE());
@@ -47,8 +53,8 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
             holder.tvPrice.setText("n/a");
         }
 
-        if (displayPrice.getFROMSYMBOL() != null) {
-            holder.tvCoinTag.setText(displayPrice.getFROMSYMBOL());
+        if (rawPrice.getFROMSYMBOL() != null) {
+            holder.tvCoinTag.setText(rawPrice.getFROMSYMBOL());
         } else {
             holder.tvCoinTag.setText("C");
         }
@@ -72,7 +78,7 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return displayPrices.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

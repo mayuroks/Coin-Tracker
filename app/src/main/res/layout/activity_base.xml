@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="android.tracker.coin.coin.tracker.zxr.BaseActivity">
+    tools:context="coin.tracker.zxr.BaseActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,8 +15,8 @@
         android:background="@color/colorPrimaryLight"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:contentInsetStart="0dp">
 
         <RelativeLayout

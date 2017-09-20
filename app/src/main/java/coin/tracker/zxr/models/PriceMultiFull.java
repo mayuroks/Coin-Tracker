@@ -9,14 +9,14 @@ import java.util.HashMap;
 
 public class PriceMultiFull {
 
-    HashMap<String, HashMap> RAW;
+    HashMap<String, HashMap<String, RawPrice>> RAW;
     HashMap<String, HashMap<String, DisplayPrice>> DISPLAY;
 
-    public HashMap<String, HashMap> getRAW() {
+    public HashMap<String, HashMap<String, RawPrice>> getRAW() {
         return RAW;
     }
 
-    public void setRAW(HashMap<String, HashMap> RAW) {
+    public void setRAW(HashMap<String, HashMap<String, RawPrice>> RAW) {
         this.RAW = RAW;
     }
 
@@ -28,7 +28,7 @@ public class PriceMultiFull {
         this.DISPLAY = DISPLAY;
     }
 
-    public ArrayList<DisplayPrice> getDisplayPrice() {
+    public ArrayList<DisplayPrice> getDisplayPrices() {
         ArrayList<DisplayPrice> displayPrices = new ArrayList<>();
         HashMap<String, HashMap<String, DisplayPrice>> displayHash = getDISPLAY();
 
@@ -40,5 +40,19 @@ public class PriceMultiFull {
         }
 
         return displayPrices;
+    }
+
+    public ArrayList<RawPrice> getRawPrices() {
+        ArrayList<RawPrice> rawPrices = new ArrayList<>();
+        HashMap<String, HashMap<String, RawPrice>> rawHash = getRAW();
+
+        for (HashMap h : rawHash.values()) {
+            if (h.containsKey("INR")) {
+                RawPrice rawPrice = (RawPrice) h.get("INR");
+                rawPrices.add(rawPrice);
+            }
+        }
+
+        return rawPrices;
     }
 }

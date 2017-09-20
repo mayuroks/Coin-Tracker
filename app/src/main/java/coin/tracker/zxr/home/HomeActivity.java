@@ -16,6 +16,7 @@ import coin.tracker.zxr.R;
 import coin.tracker.zxr.data.Repository;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
+import coin.tracker.zxr.models.RawPrice;
 import coin.tracker.zxr.utils.Injection;
 import coin.tracker.zxr.utils.schedulers.SchedulerProvider;
 import io.reactivex.Observer;
@@ -67,17 +68,22 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         PriceMultiFull price = priceMultiFull;
         HashMap display = priceMultiFull.getDISPLAY();
         ArrayList<DisplayPrice> displayPrices = new ArrayList<>();
+        ArrayList<RawPrice> rawPrices = new ArrayList<>();
 
         if (display.size() > 0) {
             Logger.i("display size > 0");
-            displayPrices = priceMultiFull.getDisplayPrice();
-            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices);
+            displayPrices = priceMultiFull.getDisplayPrices();
+            rawPrices = priceMultiFull.getRawPrices();
+
+            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices, rawPrices);
             layoutManager = new LinearLayoutManager(this);
             rvMyCoins.setAdapter(myCoinsAdapter);
             rvMyCoins.setLayoutManager(layoutManager);
             rvMyCoins.setHasFixedSize(true);
+
             RecyclerView.ItemDecoration dividerItemDecoration =
-                    new RVDividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.bg_rv_separator));
+                    new RVDividerItemDecoration(ContextCompat.getDrawable(this,
+                            R.drawable.bg_rv_separator));
             rvMyCoins.addItemDecoration(dividerItemDecoration);
         } else {
             // TODO show meaningful error

@@ -15,14 +15,14 @@
         android:textAlignment="textEnd"
         android:layout_gravity="end"
         android:paddingTop="6dp"
-        android:paddingRight="24dp"
+        android:paddingRight="20dp"
         android:text="Set price alert"/>
 
     <RelativeLayout
         android:id="@+id/rlCoinTag"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="24dp">
+        android:layout_marginLeft="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/rlCoinTag">
 
         <TextView
@@ -62,13 +62,13 @@
             android:text="3,400,000" />
 
         <TextView
-            style="@style/IncrementText"
+            style="@style/DeltaText"
             android:id="@+id/tvPriceDelta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/tvPrice"
-            android:layout_marginRight="24dp"
+            android:layout_marginRight="20dp"
             android:text="100"/>
     </RelativeLayout>
 

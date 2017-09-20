@@ -1,20 +1,18 @@
 package coin.tracker.zxr;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import coin.tracker.zxr.R;
-
-import coin.tracker.zxr.webservice.APIService;
-import coin.tracker.zxr.webservice.RestClient;
 import android.view.LayoutInflater;
 import android.view.ViewStub;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import coin.tracker.zxr.webservice.APIService;
+import coin.tracker.zxr.webservice.RestClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity {
