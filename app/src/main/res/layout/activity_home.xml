@@ -8,40 +8,45 @@
     android:background="@color/colorPrimary"
     tools:context="coin.tracker.zxr.home.HomeActivity">
 
+    <LinearLayout
+        android:id="@+id/llMyCoinHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Coins"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorSeparator"/>
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/svHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_below="@id/llMyCoinHeader"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/llMyCoinHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="My Coins"/>
-
-                <View
-                    android:layout_width="48dp"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorSeparator"/>
-            </LinearLayout>
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvMyCoins"
-                android:layout_marginTop="@dimen/margin_top"
-                android:layout_below="@id/llMyCoinHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:scrollbars="none">
             </android.support.v7.widget.RecyclerView>
 
         </RelativeLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -19,6 +20,7 @@ import coin.tracker.zxr.data.Repository;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
+import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.FontManager;
 import coin.tracker.zxr.utils.Injection;
 import coin.tracker.zxr.utils.schedulers.SchedulerProvider;
@@ -32,7 +34,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     RecyclerView rvMyCoins;
 
     MyCoinsAdapter myCoinsAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    LinearLayoutManager layoutManager;
     HomeContract.Presenter presenter;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 //        coins.add("LTC");
 
         HashMap params = new HashMap();
-        params.put("fsyms", "BTC,ETH,LTC");
+        ArrayList<String> coinsList = CoinHelper.getInstance().getAllUserCoins();
+        String coins = android.text.TextUtils.join(",", coinsList);
+        params.put("fsyms", coins);
         params.put("tsyms", "INR");
         Logger.i("initView");
         presenter.getTrackedCoinData(params);
@@ -83,7 +87,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             layoutManager = new LinearLayoutManager(this);
             rvMyCoins.setAdapter(myCoinsAdapter);
             rvMyCoins.setLayoutManager(layoutManager);
-            rvMyCoins.setHasFixedSize(true);
+            rvMyCoins.setNestedScrollingEnabled(false);
 
             RecyclerView.ItemDecoration dividerItemDecoration =
                     new RVDividerItemDecoration(ContextCompat.getDrawable(this,
@@ -141,11 +145,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     private void setupActionButton() {
         TextView tvActionButton = (TextView) findViewById(R.id.tvActionButton);
         TextView tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
+        Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
+        FontManager.setTypeface(tvActionButton, fontawesome);
 
         tvActionButton.setText(getResources().getString(R.string.material_icon_plus));
         tvActionDescription.setText("Add a coin");
-
-        Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
-        FontManager.setTypeface(tvActionButton, fontawesome);
     }
 }

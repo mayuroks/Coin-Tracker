@@ -42,17 +42,20 @@
     <ViewStub
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginRight="@dimen/margin_right"
+        android:layout_above="@+id/rlUserAction"
         android:layout_below="@+id/toolbar"/>
 
     <RelativeLayout
+        android:id="@+id/rlUserAction"
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:layout_alignParentBottom="true">
 
         <TextView
+            android:id="@+id/tvUserAction"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:background="@color/colorPrimaryLight"

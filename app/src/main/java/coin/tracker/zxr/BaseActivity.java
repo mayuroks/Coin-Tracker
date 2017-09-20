@@ -54,4 +54,13 @@ public class BaseActivity extends AppCompatActivity {
     public void initToolbar(String title) {
         tvToolbarTitle.setText(title);
     }
+
+    public static boolean isValidString(String str) {
+        if (str != null && str.length() > 0 &&
+                !str.isEmpty() && !str.equalsIgnoreCase("")) {
+            return true;
+        }
+
+        return false;
+    }
 }

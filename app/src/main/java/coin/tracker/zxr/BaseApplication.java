@@ -10,6 +10,7 @@ import com.orhanobut.hawk.Hawk;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
+import coin.tracker.zxr.utils.CoinHelper;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**

@@ -3,6 +3,8 @@ package coin.tracker.zxr.home;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+
+import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.models.DisplayPrice;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.models.RawPrice;
+import coin.tracker.zxr.utils.CoinHelper;
 
 /**
  * Created by Mayur on 19-09-2017.
@@ -55,6 +58,12 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
 
         if (rawPrice.getFROMSYMBOL() != null) {
             holder.tvCoinTag.setText(rawPrice.getFROMSYMBOL());
+            String symbol = rawPrice.getFROMSYMBOL();
+            String coinName = CoinHelper.getInstance().getCoinName(symbol);
+
+            if (BaseActivity.isValidString(coinName)) {
+                holder.tvCoinName.setText(coinName);
+            }
         } else {
             holder.tvCoinTag.setText("C");
         }
