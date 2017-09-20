@@ -10,6 +10,7 @@ import android.view.ViewStub;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.webservice.APIService;
 import coin.tracker.zxr.webservice.RestClient;
@@ -17,6 +18,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private TextView tvActionButton;
+    private TextView tvActionDescription;
     private Toolbar toolbar;
     private TextView tvToolbarTitle;
     private RelativeLayout baseLayout;
@@ -34,6 +37,8 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(baseLayout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvToolbarTitle = (TextView) findViewById(R.id.tvToolbarTitle);
+        tvActionButton = (TextView) findViewById(R.id.tvActionButton);
+        tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
         setSupportActionBar(toolbar);
         ViewStub stub = (ViewStub) baseLayout.findViewById(R.id.container);
         stub.setLayoutResource(layoutResID);

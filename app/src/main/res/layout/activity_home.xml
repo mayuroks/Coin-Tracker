@@ -9,6 +9,7 @@
     tools:context="coin.tracker.zxr.home.HomeActivity">
 
     <ScrollView
+        android:id="@+id/svHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

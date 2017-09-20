@@ -47,4 +47,37 @@
         android:layout_marginRight="@dimen/margin_right"
         android:layout_below="@+id/toolbar"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/colorPrimaryLight"
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/tvActionButton"
+            style="@style/LargeFontAwesome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="28dp"
+            android:text="x"
+            android:gravity="center"
+            android:background="@drawable/bg_round_accent_filled" />
+
+        <TextView
+            android:id="@+id/tvActionDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Action text"/>
+
+    </RelativeLayout>
 </RelativeLayout>

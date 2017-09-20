@@ -6,6 +6,7 @@ import android.support.multidex.MultiDexApplication;
 import coin.tracker.zxr.R;
 import android.util.Log;
 
+import com.orhanobut.hawk.Hawk;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -24,6 +25,8 @@ public class BaseApplication extends MultiDexApplication {
         MultiDex.install(this);
 
         Logger.addLogAdapter(new AndroidLogAdapter());
+
+        Hawk.init(getBaseContext()).build();
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/lato_regular.ttf")

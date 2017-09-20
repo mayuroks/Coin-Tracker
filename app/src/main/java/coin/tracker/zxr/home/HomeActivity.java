@@ -1,9 +1,11 @@
 package coin.tracker.zxr.home;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
@@ -17,6 +19,7 @@ import coin.tracker.zxr.data.Repository;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
+import coin.tracker.zxr.utils.FontManager;
 import coin.tracker.zxr.utils.Injection;
 import coin.tracker.zxr.utils.schedulers.SchedulerProvider;
 import io.reactivex.Observer;
@@ -56,6 +59,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         Logger.i("initView");
         presenter.getTrackedCoinData(params);
 
+        setupActionButton();
     }
 
     @Override
@@ -132,5 +136,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
                     }
                 });
+    }
+
+    private void setupActionButton() {
+        TextView tvActionButton = (TextView) findViewById(R.id.tvActionButton);
+        TextView tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
+
+        tvActionButton.setText(getResources().getString(R.string.material_icon_plus));
+        tvActionDescription.setText("Add a coin");
+
+        Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
+        FontManager.setTypeface(tvActionButton, fontawesome);
     }
 }
