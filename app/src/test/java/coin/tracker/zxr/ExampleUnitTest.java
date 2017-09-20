@@ -1,4 +1,4 @@
-package android.tracker.coin;
+package coin.tracker.zxr;
 
 import org.junit.Test;
 

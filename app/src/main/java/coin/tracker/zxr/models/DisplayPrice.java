@@ -10,20 +10,7 @@ public class DisplayPrice {
     String PRICE;
     String CHANGE24HOUR;
     String COINTAG;
-
-    public DisplayPrice(HashMap hash) {
-        if (hash.containsKey("PRICE")) {
-            this.PRICE = (String) hash.get("PRICE");
-        }
-
-        if (hash.containsKey("CHANGE24HOUR")) {
-            this.PRICE = (String) hash.get("CHANGE24HOUR");
-        }
-
-        if (hash.containsKey("COINTAG")) {
-            this.PRICE = (String) hash.get("COINTAG");
-        }
-    }
+    String FROMSYMBOL;
 
     public String getCHANGE24HOUR() {
         return CHANGE24HOUR;
@@ -47,5 +34,13 @@ public class DisplayPrice {
 
     public void setPRICE(String PRICE) {
         this.PRICE = PRICE;
+    }
+
+    public String getFROMSYMBOL() {
+        return FROMSYMBOL;
+    }
+
+    public void setFROMSYMBOL(String FROMSYMBOL) {
+        this.FROMSYMBOL = FROMSYMBOL;
     }
 }

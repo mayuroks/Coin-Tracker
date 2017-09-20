@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Coin Tracker</string>
+    <string name="up_caret">&#9650;</string>
+    <string name="down_caret">&#9660;</string>
 </resources>

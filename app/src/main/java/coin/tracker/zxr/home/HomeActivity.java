@@ -71,7 +71,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         if (display.size() > 0) {
             Logger.i("display size > 0");
             displayPrices = priceMultiFull.getDisplayPrice();
-            myCoinsAdapter = new MyCoinsAdapter(displayPrices);
+            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices);
             layoutManager = new LinearLayoutManager(this);
             rvMyCoins.setAdapter(myCoinsAdapter);
             rvMyCoins.setLayoutManager(layoutManager);

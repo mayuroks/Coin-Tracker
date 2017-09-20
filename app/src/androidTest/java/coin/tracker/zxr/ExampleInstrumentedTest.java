@@ -1,4 +1,4 @@
-package android.tracker.coin;
+package coin.tracker.zxr;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

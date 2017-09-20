@@ -16,7 +16,7 @@
         android:layout_gravity="end"
         android:paddingTop="6dp"
         android:paddingRight="24dp"
-        tools:text="Set Price Alert"/>
+        android:text="Set price alert"/>
 
     <RelativeLayout
         android:id="@+id/rlCoinTag"
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/tvCoinTag"
-            style="@style/CoinTagText"
+            style="@style/XXNormalTextBold"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,17 +47,29 @@
         android:layout_toRightOf="@+id/rlCoinTag">
 
         <TextView
+            style="@style/XNormalText"
             android:id="@+id/tvCoinName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BitCoin" />
 
         <TextView
+            style="@style/XXXNormalTextBold"
             android:id="@+id/tvPrice"
             android:layout_below="@+id/tvCoinName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3,400,000" />
+
+        <TextView
+            style="@style/IncrementText"
+            android:id="@+id/tvPriceDelta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/tvPrice"
+            android:layout_marginRight="24dp"
+            android:text="100"/>
     </RelativeLayout>
 
 </RelativeLayout>
