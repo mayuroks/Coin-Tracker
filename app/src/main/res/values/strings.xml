@@ -7,4 +7,5 @@
     <string name="fa_icon_linechart">&#xf201;</string>
     <string name="fa_icon_plus">&#xf067;</string>
     <string name="material_icon_plus">&#xf278;</string>
+    <string name="material_icon_close">&#xf136;</string>
 </resources>

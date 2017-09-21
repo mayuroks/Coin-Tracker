@@ -19,6 +19,8 @@ public class FontManager {
     }
 
     public static void setTypeface(View v, Typeface typeface) {
-        ((TextView) v).setTypeface(typeface);
+        if (v != null && typeface != null) {
+            ((TextView) v).setTypeface(typeface);
+        }
     }
 }

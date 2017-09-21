@@ -1,5 +1,6 @@
 package coin.tracker.zxr.home;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,7 @@ import coin.tracker.zxr.models.CoinListResponse;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
+import coin.tracker.zxr.search.SearchCoinsActivity;
 import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.FontManager;
 import coin.tracker.zxr.utils.Injection;
@@ -49,6 +51,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void initView() {
         initToolbar("Coin Tracker");
+        setupActionButton();
 
         // FIXME save user coins and get them from local DB
 //        ArrayList<String> coins = new ArrayList<>();
@@ -63,8 +66,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         params.put("tsyms", "INR");
         Logger.i("initView");
         presenter.getTrackedCoinData(params);
-
-        setupActionButton();
     }
 
     @Override
@@ -101,7 +102,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void goToSearchCoinView() {
-
+        startActivity(new Intent(this, SearchCoinsActivity.class));
     }
 
     private void testAPICall() {
@@ -155,7 +156,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         tvActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                goToSearchCoinView();
             }
         });
     }

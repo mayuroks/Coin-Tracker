@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.models.RawPrice;
 import coin.tracker.zxr.utils.CoinHelper;
+import coin.tracker.zxr.utils.TextUtils;
 
 /**
  * Created by Mayur on 19-09-2017.
@@ -61,7 +62,7 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
             String symbol = rawPrice.getFROMSYMBOL();
             String coinName = CoinHelper.getInstance().getCoinName(symbol);
 
-            if (BaseActivity.isValidString(coinName)) {
+            if (TextUtils.isValidString(coinName)) {
                 holder.tvCoinName.setText(coinName);
             }
         } else {

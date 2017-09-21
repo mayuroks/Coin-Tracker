@@ -127,24 +127,32 @@ public class CoinHelper {
     }
 
     /*
-    * Cache all universally available coins
+    * Cache all universally available coins as <CoinTag, CoinName>
     * */
     public void updateAllCachedCoins(HashMap<String, CoinListItem> allCoins,
                               boolean isForced) {
-        HashMap<String, CoinListItem> allCachedCoins = getAllCachedCoins();
+        HashMap<String, String> allCachedCoins = getAllCachedCoins();
 
         // update all cached coins only
         // if size is 0 OR if the update is forced
         if (allCachedCoins.size() == 0 || isForced) {
-            Hawk.put(ALL_COIN_LIST, allCoins);
+            for (String coinTag : allCoins.keySet()) {
+                String coinName = allCoins.get(coinTag).getCoinName();
+
+                if (TextUtils.isValidString(coinTag) &&
+                        TextUtils.isValidString(coinName))
+                allCachedCoins.put(coinTag, coinName);
+            }
+
+            Hawk.put(ALL_COIN_LIST, allCachedCoins);
         }
     }
 
     /*
     * Get all cached coins
     * */
-    public HashMap<String, CoinListItem> getAllCachedCoins() {
+    public HashMap<String, String> getAllCachedCoins() {
         return Hawk.get(ALL_COIN_LIST,
-                new HashMap<String, CoinListItem>());
+                new HashMap<String, String>());
     }
 }
