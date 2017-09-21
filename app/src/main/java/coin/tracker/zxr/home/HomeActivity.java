@@ -17,6 +17,7 @@ import butterknife.BindView;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.data.Repository;
+import coin.tracker.zxr.models.CoinListResponse;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
@@ -150,5 +151,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
         tvActionButton.setText(getResources().getString(R.string.material_icon_plus));
         tvActionDescription.setText("Add a coin");
+
+        tvActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

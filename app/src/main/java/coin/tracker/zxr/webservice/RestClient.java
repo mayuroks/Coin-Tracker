@@ -1,6 +1,13 @@
 package coin.tracker.zxr.webservice;
 
+import com.orhanobut.logger.Logger;
+
+import java.io.IOException;
+
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -12,12 +19,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
 
+    private static String API_BASE_URL_1 = "https://min-api.cryptocompare.com/data/";
+    private static String API_BASE_URL_2 = "https://www.cryptocompare.com/api/data/";
+
     private static String API_BASE_URL = "https://min-api.cryptocompare.com/data/";
 
     private static HttpLoggingInterceptor logging = getLoggerInterceptor();
 
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .addInterceptor(logging)
+            .addInterceptor(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
+                    Request request;
+                    Response response;
+                    String url = original.url().toString();
+                    Logger.i(url);
+
+                    if (url.contains("coinlist")) {
+                        String newUrl = url.replace(API_BASE_URL_1, API_BASE_URL_2);
+                        Request.Builder requestBuilder = original.newBuilder().url(newUrl);
+                        request = requestBuilder.build();
+                        response = chain.proceed(request);
+                        Logger.i(newUrl);
+                    } else {
+                        response = chain.proceed(original);
+                    }
+
+                    return response;
+                }
+            })
             .build();
 
     private static Retrofit retrofit = new Retrofit.Builder()

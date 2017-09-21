@@ -1,5 +1,6 @@
 package coin.tracker.zxr.webservice;
 
+import coin.tracker.zxr.models.CoinListResponse;
 import coin.tracker.zxr.models.PriceMultiFull;
 
 import java.util.Map;
@@ -17,5 +18,8 @@ public interface APIService {
     // FIXME change the urls
     @GET("pricemultifull")
     Observable<PriceMultiFull> getTrackedCoins(@QueryMap Map<String, Object> options);
+
+    @GET("coinlist/")
+    Observable<CoinListResponse> getAllCoins();
 
 }

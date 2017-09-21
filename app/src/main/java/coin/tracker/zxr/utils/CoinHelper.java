@@ -3,6 +3,9 @@ package coin.tracker.zxr.utils;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import coin.tracker.zxr.models.CoinListItem;
 
 /**
  * Created by Mayur on 20-09-2017.
@@ -11,7 +14,8 @@ import java.util.ArrayList;
 public class CoinHelper {
 
     private static CoinHelper INSTANCE;
-    private final String COIN_LIST = "coinList" ;
+    private final String ALL_COIN_LIST = "allCoinList" ;
+    private final String USER_COIN_LIST = "coinList" ;
     private final String BTC = "BTC", ETH = "ETH", LTC = "LTC";
     private final String Bitcoin = "Bitcoin",
             Ethereum = "Ethereum",
@@ -77,31 +81,31 @@ public class CoinHelper {
     * Get all save coins
     * */
     public ArrayList<String> getAllUserCoins() {
-        return Hawk.get(COIN_LIST, new ArrayList<String>());
+        return Hawk.get(USER_COIN_LIST, new ArrayList<String>());
     }
 
     /*
     * Add a coin to list of user tracked coin-symbols
     * */
     private void addCoinToList(String symbol) {
-        ArrayList<String> coins = Hawk.get(COIN_LIST, new ArrayList<String>());
+        ArrayList<String> coins = Hawk.get(USER_COIN_LIST, new ArrayList<String>());
 
         if (!coins.contains(symbol)) {
             coins.add(symbol);
         }
 
-        Hawk.put(COIN_LIST, coins);
+        Hawk.put(USER_COIN_LIST, coins);
     }
 
     /*
     * Add a coin to list of user tracked coin-symbols
     * */
     public void deleteCoinFromList(String symbol) {
-        ArrayList<String> coins = Hawk.get(COIN_LIST, new ArrayList<String>());
+        ArrayList<String> coins = Hawk.get(USER_COIN_LIST, new ArrayList<String>());
 
         if (!coins.contains(symbol)) {
             coins.remove(symbol);
-            Hawk.put(COIN_LIST, coins);
+            Hawk.put(USER_COIN_LIST, coins);
         }
     }
 
@@ -120,5 +124,27 @@ public class CoinHelper {
     public void deleteCoin(String symbol) {
         Hawk.delete(symbol);
         deleteCoinFromList(symbol);
+    }
+
+    /*
+    * Cache all universally available coins
+    * */
+    public void updateAllCachedCoins(HashMap<String, CoinListItem> allCoins,
+                              boolean isForced) {
+        HashMap<String, CoinListItem> allCachedCoins = getAllCachedCoins();
+
+        // update all cached coins only
+        // if size is 0 OR if the update is forced
+        if (allCachedCoins.size() == 0 || isForced) {
+            Hawk.put(ALL_COIN_LIST, allCoins);
+        }
+    }
+
+    /*
+    * Get all cached coins
+    * */
+    public HashMap<String, CoinListItem> getAllCachedCoins() {
+        return Hawk.get(ALL_COIN_LIST,
+                new HashMap<String, CoinListItem>());
     }
 }
