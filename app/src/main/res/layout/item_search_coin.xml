@@ -36,7 +36,7 @@
         android:layout_toRightOf="@+id/rlCoinTag">
 
         <TextView
-            style="@style/XXXNormalTextBold"
+            style="@style/XNormalText"
             android:id="@+id/tvCoinName"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"

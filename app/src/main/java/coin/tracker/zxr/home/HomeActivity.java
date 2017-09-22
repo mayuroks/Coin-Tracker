@@ -53,12 +53,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initToolbar("Coin Tracker");
         setupActionButton();
 
-        // FIXME save user coins and get them from local DB
-//        ArrayList<String> coins = new ArrayList<>();
-//        coins.add("BTC");
-//        coins.add("ETH");
-//        coins.add("LTC");
-
         HashMap params = new HashMap();
         ArrayList<String> coinsList = CoinHelper.getInstance().getAllUserCoins();
         String coins = android.text.TextUtils.join(",", coinsList);

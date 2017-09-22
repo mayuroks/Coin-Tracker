@@ -2,6 +2,7 @@ package coin.tracker.zxr.search;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
+import coin.tracker.zxr.home.RVDividerItemDecoration;
 import coin.tracker.zxr.models.CoinListItem;
 import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.FontManager;
@@ -30,9 +32,10 @@ public class SearchCoinsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_coins);
+        getSupportActionBar().hide();
         setupActionButton();
         // FIXME consumes too much memory and start GC
-//        setupAllCoins();
+        setupAllCoins();
     }
 
     private void setupAllCoins() {
@@ -46,6 +49,11 @@ public class SearchCoinsActivity extends BaseActivity {
         layoutManager = new LinearLayoutManager(this);
         rvAllCoins.setAdapter(allCoinsAdapter);
         rvAllCoins.setLayoutManager(layoutManager);
+        rvAllCoins.setNestedScrollingEnabled(false);
+        RecyclerView.ItemDecoration dividerItemDecoration =
+                new RVDividerItemDecoration(ContextCompat.getDrawable(this,
+                        R.drawable.bg_rv_separator));
+        rvAllCoins.addItemDecoration(dividerItemDecoration);
     }
 
     private void setupActionButton() {
@@ -54,8 +62,8 @@ public class SearchCoinsActivity extends BaseActivity {
         Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
         FontManager.setTypeface(tvActionButton, fontawesome);
 
-        tvActionButton.setText(getResources().getString(R.string.material_icon_plus));
-        tvActionDescription.setText("Add a coin");
+        tvActionButton.setText(getResources().getString(R.string.material_icon_done));
+        tvActionDescription.setText("Done");
 
         tvActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

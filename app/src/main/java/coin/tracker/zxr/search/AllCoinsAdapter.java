@@ -44,8 +44,8 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String coinName = items.get(position);
         String coinTag = coinTags.get(position);
+        String coinName = items.get(coinTag);
 
         if (TextUtils.isValidString(coinName)) {
             holder.tvCoinName.setText(coinName);
@@ -60,7 +60,9 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return items.size();
+//        FIXME implement lazy loading
+//        return items.size();
+        return 10;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

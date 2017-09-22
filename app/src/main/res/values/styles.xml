@@ -24,6 +24,11 @@
         <item name="android:textSize">@dimen/text_xxnormal</item>
     </style>
 
+    <style name="XXNormalText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_xxnormal</item>
+    </style>
+
     <style name="XXXNormalTextBold">
         <item name="fontPath">fonts/lato_bold.ttf</item>
         <item name="android:textSize">@dimen/text_xxxnormal</item>
@@ -51,8 +56,7 @@
         <item name="android:textSize">@dimen/text_xnormal</item>
     </style>
 
-    <style name="LargeFontAwesome">
-        <item name="fontPath">fonts/FontAwesome.otf</item>
+    <style name="LargeIconFont">
         <item name="android:textSize">@dimen/text_xxlarge</item>
     </style>
 </resources>

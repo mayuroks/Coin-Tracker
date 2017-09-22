@@ -15,7 +15,6 @@ import retrofit2.http.QueryMap;
 
 public interface APIService {
 
-    // FIXME change the urls
     @GET("pricemultifull")
     Observable<PriceMultiFull> getTrackedCoins(@QueryMap Map<String, Object> options);
 
