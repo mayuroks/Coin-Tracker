@@ -18,7 +18,6 @@ import butterknife.BindView;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.data.Repository;
-import coin.tracker.zxr.models.CoinListResponse;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
@@ -36,9 +35,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @BindView(R.id.rvMyCoins)
     RecyclerView rvMyCoins;
 
+    @BindView(R.id.tvMyCoinsCount)
+    TextView tvMyCoinsCount;
+
     MyCoinsAdapter myCoinsAdapter;
     LinearLayoutManager layoutManager;
     HomeContract.Presenter presenter;
+    // FIXME migrate to DiffUtil
+    boolean isRefreshUserCoins = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +56,26 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     public void initView() {
         initToolbar("Coin Tracker");
         setupActionButton();
+        refreshUserCoins();
+    }
 
-        HashMap params = new HashMap();
-        ArrayList<String> coinsList = CoinHelper.getInstance().getAllUserCoins();
-        String coins = android.text.TextUtils.join(",", coinsList);
-        params.put("fsyms", coins);
-        params.put("tsyms", "INR");
-        Logger.i("initView");
-        presenter.getTrackedCoinData(params);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*
+        * If saved coin and rvCoinCount
+        * is not the same refresh the UI
+        * */
+        if (layoutManager != null) {
+            int rvCoinCount = layoutManager.getItemCount();
+            int userCoinCount = CoinHelper.getInstance()
+                    .getAllUserCoins().size();
+
+            if (rvCoinCount != userCoinCount) {
+                isRefreshUserCoins = true;
+                refreshUserCoins(); //
+            }
+        }
     }
 
     @Override
@@ -73,6 +89,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         HashMap display = priceMultiFull.getDISPLAY();
         ArrayList<DisplayPrice> displayPrices = new ArrayList<>();
         ArrayList<RawPrice> rawPrices = new ArrayList<>();
+        RecyclerView.ItemDecoration dividerItemDecoration =
+                new RVDividerItemDecoration(ContextCompat.getDrawable(this,
+                        R.drawable.bg_rv_separator));
 
         if (display.size() > 0) {
             Logger.i("display size > 0");
@@ -85,10 +104,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             rvMyCoins.setLayoutManager(layoutManager);
             rvMyCoins.setNestedScrollingEnabled(false);
 
-            RecyclerView.ItemDecoration dividerItemDecoration =
-                    new RVDividerItemDecoration(ContextCompat.getDrawable(this,
-                            R.drawable.bg_rv_separator));
-            rvMyCoins.addItemDecoration(dividerItemDecoration);
+            if (!isRefreshUserCoins) {
+                // add item decoration only once
+                rvMyCoins.addItemDecoration(dividerItemDecoration);
+            } else {
+                isRefreshUserCoins = false;
+            }
         } else {
             // TODO show meaningful error
         }
@@ -97,6 +118,17 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void goToSearchCoinView() {
         startActivity(new Intent(this, SearchCoinsActivity.class));
+    }
+
+    private void refreshUserCoins() {
+        HashMap params = new HashMap();
+        ArrayList<String> coinsList = CoinHelper.getInstance().getAllUserCoins();
+        tvMyCoinsCount.setText("My Coins(" +
+                Integer.toString(coinsList.size()) + ")");
+        String coins = android.text.TextUtils.join(",", coinsList);
+        params.put("fsyms", coins);
+        params.put("tsyms", "INR");
+        presenter.getTrackedCoinData(params);
     }
 
     private void testAPICall() {

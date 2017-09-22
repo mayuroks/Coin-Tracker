@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.models.CoinListItem;
+import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.TextUtils;
 
 /**
@@ -27,11 +29,21 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
     private HashMap<String, String> items;
     private ArrayList<String> coinTags;
     private Context context;
+    SearchCoinListener searchCoinListener;
 
-    public AllCoinsAdapter(Context context, HashMap<String, String> items) {
+    public AllCoinsAdapter(Context context,
+                           HashMap<String,String> items) {
         this.items = items;
         this.context = context;
+        this.searchCoinListener = (SearchCoinListener) context ;
         coinTags = new ArrayList<String>(items.keySet());
+
+        // Don't show coins that user has already selected
+        ArrayList<String> userCoins = CoinHelper.getInstance().getAllUserCoins();
+        for (String coinTag : userCoins) {
+            coinTags.remove(coinTag);
+            this.items.remove(coinTag);
+        }
     }
 
     @Override
@@ -44,8 +56,8 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String coinTag = coinTags.get(position);
-        String coinName = items.get(coinTag);
+        final String coinTag = coinTags.get(position);
+        final String coinName = items.get(coinTag);
 
         if (TextUtils.isValidString(coinName)) {
             holder.tvCoinName.setText(coinName);
@@ -56,6 +68,19 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
         if (TextUtils.isValidString(coinTag)) {
             holder.tvCoinTag.setText(coinTag);
         }
+
+        holder.cbSelectedCoin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (searchCoinListener != null) {
+                    if (isChecked) {
+                        searchCoinListener.onCoinSelected(coinTag, coinName);
+                    } else {
+                        searchCoinListener.onCoinUnselected(coinTag, coinName);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -64,6 +89,7 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 //        return items.size();
         return 10;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

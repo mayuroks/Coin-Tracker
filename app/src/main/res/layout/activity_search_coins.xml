@@ -16,9 +16,10 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvSelectedCoinsCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Selected Coins"/>
+            android:text="Selected Coins(0)"/>
 
         <View
             android:layout_width="48dp"

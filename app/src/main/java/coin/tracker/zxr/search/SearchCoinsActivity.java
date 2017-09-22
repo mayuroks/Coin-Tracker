@@ -3,7 +3,6 @@ package coin.tracker.zxr.search;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,17 +15,20 @@ import butterknife.BindView;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.home.RVDividerItemDecoration;
-import coin.tracker.zxr.models.CoinListItem;
 import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.FontManager;
 
-public class SearchCoinsActivity extends BaseActivity {
+public class SearchCoinsActivity extends BaseActivity implements SearchCoinListener {
 
     @BindView(R.id.rvAllCoins)
     RecyclerView rvAllCoins;
 
+    @BindView(R.id.tvSelectedCoinsCount)
+    TextView tvSelectedCoinsCount;
+
     AllCoinsAdapter allCoinsAdapter;
     LinearLayoutManager layoutManager;
+    HashMap<String, String> selectedCoins = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,18 @@ public class SearchCoinsActivity extends BaseActivity {
                 new RVDividerItemDecoration(ContextCompat.getDrawable(this,
                         R.drawable.bg_rv_separator));
         rvAllCoins.addItemDecoration(dividerItemDecoration);
+
+        rvAllCoins.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     private void setupActionButton() {
@@ -68,8 +82,29 @@ public class SearchCoinsActivity extends BaseActivity {
         tvActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (String coinTag : selectedCoins.keySet()) {
+                    CoinHelper.getInstance()
+                            .addUserCoin(coinTag, selectedCoins.get(coinTag));
+                }
+
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onCoinSelected(String coinTag, String coinName) {
+        selectedCoins.put(coinTag, coinName);
+        tvSelectedCoinsCount.setText("Selected Coins(" +
+                Integer.toString(selectedCoins.size()) + ")");
+    }
+
+    @Override
+    public void onCoinUnselected(String coinTag, String coinName) {
+        if (selectedCoins.containsKey(coinTag)) {
+            selectedCoins.remove(coinTag);
+            tvSelectedCoinsCount.setText("Selected Coins(" +
+                    Integer.toString(selectedCoins.size()) + ")");
+        }
     }
 }

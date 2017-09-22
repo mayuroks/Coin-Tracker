@@ -16,9 +16,10 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvMyCoinsCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Coins"/>
+            android:text="My Coins(3)"/>
 
         <View
             android:layout_width="48dp"

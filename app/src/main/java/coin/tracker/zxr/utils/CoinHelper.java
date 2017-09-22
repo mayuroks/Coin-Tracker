@@ -38,7 +38,7 @@ public class CoinHelper {
     /*
     * Initiate user coins with ETH, BTC, LTC
     * */
-    public void init() {
+    public void prePopulateUserCoins() {
         if (!Hawk.contains(BTC)) {
             addUserCoin(BTC, Bitcoin);
         }
@@ -55,7 +55,7 @@ public class CoinHelper {
     /*
     * Get pre-populated coins
     * */
-    public ArrayList<String> getInitialCoins() {
+    public ArrayList<String> getInitialUserCoins() {
         ArrayList<String> initialCoins = new ArrayList<>();
         initialCoins.add(BTC);
         initialCoins.add(ETH);
@@ -100,7 +100,7 @@ public class CoinHelper {
     /*
     * Add a coin to list of user tracked coin-symbols
     * */
-    public void deleteCoinFromList(String symbol) {
+    private void deleteCoinFromList(String symbol) {
         ArrayList<String> coins = Hawk.get(USER_COIN_LIST, new ArrayList<String>());
 
         if (!coins.contains(symbol)) {
@@ -121,7 +121,7 @@ public class CoinHelper {
     /*
     * Remove a tracked coin based on symbol
     * */
-    public void deleteCoin(String symbol) {
+    public void deleteUserCoin(String symbol) {
         Hawk.delete(symbol);
         deleteCoinFromList(symbol);
     }

@@ -2,7 +2,6 @@ package coin.tracker.zxr;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.orhanobut.logger.Logger;
 
@@ -20,7 +19,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        CoinHelper.getInstance().init();
+        CoinHelper.getInstance().prePopulateUserCoins();
         getAllCoins();
         goToCubicLineChart();
     }
