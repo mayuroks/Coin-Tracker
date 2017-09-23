@@ -1,6 +1,7 @@
 package coin.tracker.zxr.search;
 
 import android.content.Context;
+import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +10,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.R;
-import coin.tracker.zxr.models.CoinListItem;
 import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.TextUtils;
 
@@ -30,6 +31,7 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
     private ArrayList<String> coinTags;
     private Context context;
     SearchCoinListener searchCoinListener;
+    boolean isLoading = false;
 
     public AllCoinsAdapter(Context context,
                            HashMap<String,String> items) {
@@ -44,6 +46,9 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
             coinTags.remove(coinTag);
             this.items.remove(coinTag);
         }
+
+        Logger.i("COINLIST items size " + Integer.toString(this.items.size()));
+        Logger.i("COINLIST coinTags size " + Integer.toString(coinTags.size()));
     }
 
     @Override
@@ -85,9 +90,7 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-//        FIXME implement lazy loading
-//        return items.size();
-        return 10;
+        return items.size();
     }
 
 

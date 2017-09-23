@@ -46,4 +46,5 @@ dependencies {
     compile 'com.orhanobut:hawk:2.0.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.github.pwittchen:infinitescroll:0.0.1'
 }
