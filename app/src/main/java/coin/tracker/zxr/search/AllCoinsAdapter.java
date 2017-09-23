@@ -27,27 +27,26 @@ import coin.tracker.zxr.utils.TextUtils;
 
 public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHolder> {
 
-    private HashMap<String, String> items;
+//    private ArrayList<String> items;
     private ArrayList<String> coinTags;
     private Context context;
     SearchCoinListener searchCoinListener;
-    boolean isLoading = false;
+    CoinHelper coinHelper;
 
     public AllCoinsAdapter(Context context,
-                           HashMap<String,String> items) {
-        this.items = items;
+                           ArrayList<String> coinTags) {
+//        this.items = items;
         this.context = context;
-        this.searchCoinListener = (SearchCoinListener) context ;
-        coinTags = new ArrayList<String>(items.keySet());
+        this.searchCoinListener = (SearchCoinListener) context;
+        this.coinTags = coinTags;
+        coinHelper = CoinHelper.getInstance();
 
         // Don't show coins that user has already selected
-        ArrayList<String> userCoins = CoinHelper.getInstance().getAllUserCoins();
+        ArrayList<String> userCoins = coinHelper.getAllUserCoins();
         for (String coinTag : userCoins) {
             coinTags.remove(coinTag);
-            this.items.remove(coinTag);
         }
 
-        Logger.i("COINLIST items size " + Integer.toString(this.items.size()));
         Logger.i("COINLIST coinTags size " + Integer.toString(coinTags.size()));
     }
 
@@ -62,7 +61,7 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final String coinTag = coinTags.get(position);
-        final String coinName = items.get(coinTag);
+        final String coinName = coinHelper.getCoinName(coinTag);
 
         if (TextUtils.isValidString(coinName)) {
             holder.tvCoinName.setText(coinName);
@@ -90,7 +89,7 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return coinTags.size();
     }
 
 
@@ -109,5 +108,17 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    @UiThread
+    public void addItems(ArrayList<String> coinTags) {
+        Logger.i("COINLIST additems called");
+        // Don't show coins that user has already selected
+        ArrayList<String> userCoins = CoinHelper.getInstance().getAllUserCoins();
+        for (String coinTag : userCoins) {
+            coinTags.remove(coinTag);
+        }
+
+        this.coinTags.addAll(coinTags);
     }
 }

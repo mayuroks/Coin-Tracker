@@ -14,8 +14,9 @@ import coin.tracker.zxr.models.CoinListItem;
 public class CoinHelper {
 
     private static CoinHelper INSTANCE;
-    private final String ALL_COIN_LIST = "allCoinList" ;
-    private final String USER_COIN_LIST = "coinList" ;
+    private static final int COIN_ITEMS_PER_PAGE = 50;
+    private final String ALL_COIN_LIST = "allCoinList";
+    private final String USER_COIN_LIST = "coinList";
     private final String BTC = "BTC", ETH = "ETH", LTC = "LTC";
     private final String Bitcoin = "Bitcoin",
             Ethereum = "Ethereum",
@@ -130,8 +131,8 @@ public class CoinHelper {
     * Cache all universally available coins as <CoinTag, CoinName>
     * */
     public void updateAllCachedCoins(HashMap<String, CoinListItem> allCoins,
-                              boolean isForced) {
-        HashMap<String, String> allCachedCoins = getAllCachedCoins();
+                                     boolean isForced) {
+        ArrayList<String> allCachedCoins = getAllCachedCoins();
 
         // update all cached coins only
         // if size is 0 OR if the update is forced
@@ -141,7 +142,10 @@ public class CoinHelper {
 
                 if (TextUtils.isValidString(coinTag) &&
                         TextUtils.isValidString(coinName))
-                allCachedCoins.put(coinTag, coinName);
+                    allCachedCoins.add(coinTag);
+
+                // Save coinTag and coinName in Hawk
+                Hawk.put(coinTag, coinName);
             }
 
             Hawk.put(ALL_COIN_LIST, allCachedCoins);
@@ -151,8 +155,28 @@ public class CoinHelper {
     /*
     * Get all cached coins
     * */
-    public HashMap<String, String> getAllCachedCoins() {
+    public ArrayList<String> getAllCachedCoins() {
         return Hawk.get(ALL_COIN_LIST,
-                new HashMap<String, String>());
+                new ArrayList<String>());
     }
+
+    /*
+    * Get cached coins in chunks rather than all at once
+    * */
+    public ArrayList<String> getCachedCoinsByPage(int page) {
+        ArrayList<String> cachedCoins = getAllCachedCoins();
+        ArrayList<String> pagedCoins = new ArrayList<>();
+
+        int start = page * COIN_ITEMS_PER_PAGE;
+        int end = page * COIN_ITEMS_PER_PAGE + COIN_ITEMS_PER_PAGE - 1;
+
+        for (int i = start; i < end; i++) {
+            if (cachedCoins.size() >= end) {
+                pagedCoins.add(cachedCoins.get(i));
+            }
+        }
+
+        return pagedCoins;
+    }
+
 }
