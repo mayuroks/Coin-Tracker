@@ -119,7 +119,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void goToSearchCoinView() {
         startActivity(new Intent(this, SearchCoinsActivity.class));
-//        overridePendingTransition(R.anim.slide_from_bottom, 0);
         overridePendingTransition(R.anim.slide_from_bottom, R.anim.stay);
     }
 

@@ -206,9 +206,13 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
     }
 
     private void dismissView() {
-//        overridePendingTransition(0, R.anim.slide_to_bottom);
         finish();
         overridePendingTransition(R.anim.stay, R.anim.slide_to_bottom);
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
     }
 
     @Override
