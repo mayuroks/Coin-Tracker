@@ -28,6 +28,7 @@ public class SplashActivity extends BaseActivity {
     ImageView ivLogo;
 
     CountDownTimer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

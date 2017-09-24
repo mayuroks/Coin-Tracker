@@ -29,6 +29,13 @@
         <item name="android:textSize">@dimen/text_xxnormal</item>
     </style>
 
+    <style name="XXNormalFadedText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_xxnormal</item>
+        <item name="android:textColor">@color/colorFadedText</item>
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
     <style name="XXXNormalTextBold">
         <item name="fontPath">fonts/lato_bold.ttf</item>
         <item name="android:textSize">@dimen/text_xxxnormal</item>

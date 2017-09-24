@@ -9,4 +9,5 @@
     <color name="colorSeparator">#E91E63</color>
     <color name="colorChangeIncrement">#69F0AE</color>
     <color name="colorChangeDecrement">#E91E63</color>
+    <color name="colorFadedText">#BBBBBB</color>
 </resources>

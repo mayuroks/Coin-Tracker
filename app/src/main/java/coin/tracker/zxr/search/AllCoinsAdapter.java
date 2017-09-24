@@ -121,4 +121,8 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
         this.coinTags.addAll(coinTags);
     }
+
+    public void reset() {
+        this.coinTags.clear();
+    }
 }

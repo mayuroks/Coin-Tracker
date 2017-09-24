@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.pwittchen.infinitescroll.library.InfiniteScrollListener;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -30,13 +32,18 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
     @BindView(R.id.tvSelectedCoinsCount)
     TextView tvSelectedCoinsCount;
 
+    @BindView(R.id.tvClearSearch)
+    TextView tvClearSearch;
+
+    @BindView(R.id.etSearch)
+    EditText etSearch;
+
     AllCoinsAdapter allCoinsAdapter;
     LinearLayoutManager layoutManager;
     HashMap<String, String> selectedCoins = new HashMap<>();
-    boolean isUserScrolling = false;
-    int visibleThreshold = 5;
-    ArrayList<String> testcoins;
     private EndlessRecyclerViewScrollListener scrollListener;
+    ArrayList<String> allCoinNames;
+    ArrayList<String> allCoinTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,11 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
         getSupportActionBar().hide();
         setupActionButton();
         setupAllCoins();
+        setupSearchBar();
+        allCoinNames = CoinHelper.getInstance().getAllCoinsNames();
+        allCoinTags = CoinHelper.getInstance().getAllCachedCoins();
+        Logger.i("COINLIST allCoinNames size " + allCoinNames.size());
+        Logger.i("COINLIST allCoinTags size " + allCoinTags.size());
     }
 
     private void setupAllCoins() {
@@ -103,7 +115,7 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
                             .addUserCoin(coinTag, selectedCoins.get(coinTag));
                 }
 
-                finish();
+                dismissView();
             }
         });
     }
@@ -130,5 +142,77 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
         allCoinsAdapter.addItems(newCoins);
         int newCount = allCoinsAdapter.getItemCount();
         allCoinsAdapter.notifyItemRangeInserted(count, newCount - count);
+    }
+
+    private void setupSearchBar() {
+        Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
+        FontManager.setTypeface(tvClearSearch, fontawesome);
+        tvClearSearch.setText(getResources().getString(R.string.material_icon_close));
+        tvClearSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.setText("");
+                resetAutoCompleteResults();
+            }
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                loadAutoCompleteResults(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void loadAutoCompleteResults(String str) {
+        rvAllCoins.removeOnScrollListener(scrollListener);
+        ArrayList<String> results = new ArrayList<>();
+        String searchStr = str.toLowerCase();
+
+        for (int i = 0; i < allCoinNames.size(); i++) {
+            if (allCoinNames.get(i)
+                    .toLowerCase()
+                    .startsWith(searchStr)) {
+                results.add(allCoinTags.get(i));
+            }
+        }
+
+        // reset all items
+        allCoinsAdapter.reset();
+        allCoinsAdapter.notifyDataSetChanged();
+
+        // add search items
+        int count = allCoinsAdapter.getItemCount();
+        allCoinsAdapter.addItems(results);
+        int newCount = allCoinsAdapter.getItemCount();
+        allCoinsAdapter.notifyItemRangeInserted(count, newCount - count);
+    }
+
+    private void resetAutoCompleteResults() {
+        ArrayList<String> coins = CoinHelper.getInstance().getCachedCoinsByPage(0);
+        allCoinsAdapter.addItems(coins);
+        allCoinsAdapter.notifyDataSetChanged();
+        rvAllCoins.addOnScrollListener(scrollListener);
+    }
+
+    private void dismissView() {
+//        overridePendingTransition(0, R.anim.slide_to_bottom);
+        finish();
+        overridePendingTransition(R.anim.stay, R.anim.slide_to_bottom);
+    }
+
+    @Override
+    public void onBackPressed() {
+        dismissView();
     }
 }

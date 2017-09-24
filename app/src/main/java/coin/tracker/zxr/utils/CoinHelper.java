@@ -1,6 +1,7 @@
 package coin.tracker.zxr.utils;
 
 import com.orhanobut.hawk.Hawk;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,8 @@ public class CoinHelper {
 
     private static CoinHelper INSTANCE;
     private static final int COIN_ITEMS_PER_PAGE = 50;
-    private final String ALL_COIN_LIST = "allCoinList";
+    private final String ALL_COINTAG_LIST = "allCoinList";
+    private final String ALL_COIN_NAMES_LIST = "allCoinNamesList";
     private final String USER_COIN_LIST = "coinList";
     private final String BTC = "BTC", ETH = "ETH", LTC = "LTC";
     private final String Bitcoin = "Bitcoin",
@@ -133,6 +135,7 @@ public class CoinHelper {
     public void updateAllCachedCoins(HashMap<String, CoinListItem> allCoins,
                                      boolean isForced) {
         ArrayList<String> allCachedCoins = getAllCachedCoins();
+        ArrayList<String> allCachedCoinNames = new ArrayList<>();
 
         // update all cached coins only
         // if size is 0 OR if the update is forced
@@ -143,12 +146,17 @@ public class CoinHelper {
                 if (TextUtils.isValidString(coinTag) &&
                         TextUtils.isValidString(coinName))
                     allCachedCoins.add(coinTag);
+                allCachedCoinNames.add(coinName);
 
                 // Save coinTag and coinName in Hawk
                 Hawk.put(coinTag, coinName);
             }
 
-            Hawk.put(ALL_COIN_LIST, allCachedCoins);
+            Hawk.put(ALL_COIN_NAMES_LIST, allCachedCoinNames);
+            Hawk.put(ALL_COINTAG_LIST, allCachedCoins);
+
+            Logger.i("INITLIST allCoinNames size " + allCachedCoinNames.size());
+            Logger.i("INITLIST allCoinTags size " + allCachedCoins.size());
         }
     }
 
@@ -156,7 +164,7 @@ public class CoinHelper {
     * Get all cached coins
     * */
     public ArrayList<String> getAllCachedCoins() {
-        return Hawk.get(ALL_COIN_LIST,
+        return Hawk.get(ALL_COINTAG_LIST,
                 new ArrayList<String>());
     }
 
@@ -177,6 +185,14 @@ public class CoinHelper {
         }
 
         return pagedCoins;
+    }
+
+    /*
+    * AutoComplete results
+    * */
+    public ArrayList<String> getAllCoinsNames() {
+        return Hawk.get(ALL_COIN_NAMES_LIST,
+                new ArrayList<String>());
     }
 
 }

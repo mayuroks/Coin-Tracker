@@ -43,9 +43,9 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/rlUserAction"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginRight="@dimen/margin_right"
-        android:layout_above="@+id/rlUserAction"
         android:layout_below="@+id/toolbar"/>
 
     <RelativeLayout
