@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewStub;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private TextView tvActionButton;
     private TextView tvActionDescription;
+    private RelativeLayout rlUserAction;
     private Toolbar toolbar;
     private TextView tvToolbarTitle;
     private RelativeLayout baseLayout;
@@ -39,6 +41,7 @@ public class BaseActivity extends AppCompatActivity {
         tvToolbarTitle = (TextView) findViewById(R.id.tvToolbarTitle);
         tvActionButton = (TextView) findViewById(R.id.tvActionButton);
         tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
+        rlUserAction = (RelativeLayout) findViewById(R.id.rlUserAction);
         setSupportActionBar(toolbar);
         ViewStub stub = (ViewStub) baseLayout.findViewById(R.id.container);
         stub.setLayoutResource(layoutResID);
@@ -52,6 +55,15 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void initToolbar(String title) {
-        tvToolbarTitle.setText(title);
+            tvToolbarTitle.setText(title);
+    }
+
+    public void initUserAction(String action,
+                               int actionIcon,
+                               boolean showUserAction) {
+        // FIXME move all user actions
+        if (!showUserAction) {
+            rlUserAction.setVisibility(View.GONE);
+        }
     }
 }

@@ -47,6 +47,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        overridePendingTransition(R.anim.fade_in, 0);
         new HomePresenterImpl(this,
                 Injection.provideSchedulerProvider(),
                 Injection.providesRepository(this));

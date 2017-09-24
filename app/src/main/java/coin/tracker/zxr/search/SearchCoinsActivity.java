@@ -44,15 +44,18 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
         setContentView(R.layout.activity_search_coins);
         getSupportActionBar().hide();
         setupActionButton();
-        // FIXME consumes too much memory and start GC
         setupAllCoins();
     }
 
     private void setupAllCoins() {
         ArrayList<String> coins = CoinHelper.getInstance().getCachedCoinsByPage(0);
 
+        /*
+        * TODO give refresh option to user to
+        * call the API, save and load coins
+        * */
         if (coins.size() == 0) {
-            return; // TODO call the API, save and load coins
+            return; //
         }
 
         allCoinsAdapter = new AllCoinsAdapter(this, coins);
