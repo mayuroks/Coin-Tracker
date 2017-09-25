@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tvToolbarTitle;
     private RelativeLayout baseLayout;
+    public RelativeLayout rlContainer;
     public APIService service = RestClient.getAPIService();
 
     @Override
@@ -42,6 +43,7 @@ public class BaseActivity extends AppCompatActivity {
         tvActionButton = (TextView) findViewById(R.id.tvActionButton);
         tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
         rlUserAction = (RelativeLayout) findViewById(R.id.rlUserAction);
+        rlContainer = (RelativeLayout) findViewById(R.id.rlContainer);
         setSupportActionBar(toolbar);
         ViewStub stub = (ViewStub) baseLayout.findViewById(R.id.container);
         stub.setLayoutResource(layoutResID);

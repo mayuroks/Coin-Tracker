@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,8 +57,12 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
         setupSearchBar();
         allCoinNames = CoinHelper.getInstance().getAllCoinsNames();
         allCoinTags = CoinHelper.getInstance().getAllCachedCoins();
-        Logger.i("COINLIST allCoinNames size " + allCoinNames.size());
-        Logger.i("COINLIST allCoinTags size " + allCoinTags.size());
+
+        // Search activity doesn't have a toolbar. Adding this rule, since
+        // To prevent search bar from coming down near useractionbar
+        RelativeLayout.LayoutParams params =
+                (RelativeLayout.LayoutParams) rlContainer.getLayoutParams();
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
     }
 
     private void setupAllCoins() {

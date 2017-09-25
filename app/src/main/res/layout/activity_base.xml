@@ -39,14 +39,20 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ViewStub
-        android:id="@+id/container"
+    <RelativeLayout
+        android:id="@+id/rlContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/rlUserAction"
         android:layout_marginLeft="@dimen/margin_left"
-        android:layout_marginRight="@dimen/margin_right"/>
+        android:layout_marginRight="@dimen/margin_right"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/rlUserAction">
+
+        <ViewStub
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlUserAction"
