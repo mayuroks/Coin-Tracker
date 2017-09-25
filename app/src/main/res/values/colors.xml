@@ -6,6 +6,7 @@
     <color name="colorAccent">#F9A825</color>
     <color name="colorText">#ffffff</color>
     <color name="colorGraph">#43DCB8</color>
+    <!--<color name="colorGraph">#43DCB8</color>-->
     <color name="colorSeparator">#E91E63</color>
     <color name="colorChangeIncrement">#69F0AE</color>
     <color name="colorChangeDecrement">#E91E63</color>

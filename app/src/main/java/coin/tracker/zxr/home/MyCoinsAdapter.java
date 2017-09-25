@@ -1,15 +1,18 @@
 package coin.tracker.zxr.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 
 import coin.tracker.zxr.BaseActivity;
+import coin.tracker.zxr.CoinDetailsActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.models.DisplayPrice;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -84,6 +87,13 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
         } else {
             holder.tvCoinTag.setText("n/a");
         }
+
+        holder.rlCoinItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, CoinDetailsActivity.class));
+            }
+        });
     }
 
     @Override
@@ -104,6 +114,9 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
 
         @BindView(R.id.tvPriceDelta)
         TextView tvPriceDelta;
+
+        @BindView(R.id.rlCoinItem)
+        RelativeLayout rlCoinItem;
 
         public ViewHolder(View itemView) {
             super(itemView);

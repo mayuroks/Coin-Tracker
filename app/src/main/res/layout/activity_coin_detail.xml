@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="coin.tracker.zxr.CoinDetailsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        style="@style/HeaderText1"
+        android:id="@+id/tvCoinName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:text="Ethereum"/>
+
+    <TextView
+        style="@style/HeaderText2"
+        android:id="@+id/tvPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCoinName"
+        android:layout_marginTop="8dp"
+        android:text="$ 3,400,00"/>
+
+    <LinearLayout
+        android:id="@+id/llMyCoinHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPrice"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvMyCoinsCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price - Last 30 days"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorSeparator"/>
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/llMyCoinHeader" />
+
+</RelativeLayout>
