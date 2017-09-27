@@ -7,14 +7,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.data.Repository;
@@ -38,6 +41,15 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @BindView(R.id.tvMyCoinsCount)
     TextView tvMyCoinsCount;
 
+    @BindView(R.id.llErrorMsg)
+    LinearLayout llErrorMsg;
+
+    @BindView(R.id.tvRefresh)
+    TextView tvRefresh;
+
+    @BindView(R.id.aviLoader)
+    AVLoadingIndicatorView aviLoader;
+
     MyCoinsAdapter myCoinsAdapter;
     LinearLayoutManager layoutManager;
     HomeContract.Presenter presenter;
@@ -57,6 +69,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     public void initView() {
         initToolbar("Coin Tracker");
         setupActionButton();
+        setupErrorButton();
         refreshUserCoins();
     }
 
@@ -82,6 +95,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void setPresenter(HomeContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void showProgress() {
+        aviLoader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        aviLoader.setVisibility(View.GONE);
     }
 
     @Override
@@ -122,7 +145,19 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         overridePendingTransition(R.anim.slide_from_bottom, R.anim.stay);
     }
 
-    private void refreshUserCoins() {
+    @Override
+    public void showErrorMsg(boolean showError) {
+        if (showError) {
+            rvMyCoins.setVisibility(View.GONE);
+            llErrorMsg.setVisibility(View.VISIBLE);
+        } else {
+            rvMyCoins.setVisibility(View.VISIBLE);
+            llErrorMsg.setVisibility(View.GONE);
+        }
+    }
+
+    @OnClick(R.id.llErrorMsg)
+    public void refreshUserCoins() {
         HashMap params = new HashMap();
         ArrayList<String> coinsList = CoinHelper.getInstance().getAllUserCoins();
         tvMyCoinsCount.setText("My Coins(" +
@@ -188,4 +223,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             }
         });
     }
+
+    private void setupErrorButton() {
+        Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
+        FontManager.setTypeface(tvRefresh, fontawesome);
+    }
+
 }

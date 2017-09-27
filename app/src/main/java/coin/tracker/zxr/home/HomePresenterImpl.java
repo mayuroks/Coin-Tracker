@@ -50,6 +50,8 @@ public class HomePresenterImpl implements HomeContract.Presenter {
     @Override
     public void getTrackedCoinData(HashMap params) {
         Logger.i("getTrackedCoinData method called");
+        view.showErrorMsg(false);
+        view.showProgress();
 
         repository.getTrackedCoins(params)
                 .subscribeOn(schedulerProvider.io())
@@ -63,12 +65,15 @@ public class HomePresenterImpl implements HomeContract.Presenter {
                     @Override
                     public void onNext(@NonNull PriceMultiFull priceMultiFull) {
                         Logger.i("onNext");
+                        view.hideProgress();
                         view.showTrackedCoins(priceMultiFull);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Logger.i("error");
+                        view.hideProgress();
+                        view.showErrorMsg(true);
                         e.printStackTrace();
                     }
 

@@ -53,7 +53,7 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
         setContentView(R.layout.activity_search_coins);
         getSupportActionBar().hide();
         setupActionButton();
-        setupAllCoins();
+
         setupSearchBar();
         allCoinNames = CoinHelper.getInstance().getAllCoinsNames();
         allCoinTags = CoinHelper.getInstance().getAllCachedCoins();
@@ -219,6 +219,7 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
+        setupAllCoins();
     }
 
     @Override

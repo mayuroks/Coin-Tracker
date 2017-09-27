@@ -18,6 +18,8 @@ public interface HomeContract {
 
         void goToSearchCoinView();
 
+        void showErrorMsg(boolean showError);
+
     }
 
     interface Presenter extends BasePresenter {
