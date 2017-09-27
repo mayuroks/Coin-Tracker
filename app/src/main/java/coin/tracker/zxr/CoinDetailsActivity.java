@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -14,15 +15,39 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.orhanobut.logger.Logger;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 import butterknife.BindView;
+import coin.tracker.zxr.data.Repository;
+import coin.tracker.zxr.models.PriceDetailsResponse;
+import coin.tracker.zxr.models.PricePoint;
+import coin.tracker.zxr.utils.CoinHelper;
+import coin.tracker.zxr.utils.Injection;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 public class CoinDetailsActivity extends BaseActivity {
 
     @BindView(R.id.chart)
     LineChart mChart;
+
+    @BindView(R.id.tvPriceTimeline)
+    TextView tvPriceTimeline;
+
+    @BindView(R.id.tvCoinName)
+    TextView tvCoinName;
+
+    @BindView(R.id.tvPrice)
+    TextView tvPrice;
+
+    String coinTag, coinName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +55,16 @@ public class CoinDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_coin_detail);
         initToolbar("Coin Details");
         initUserAction("", 0, false);
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null) {
+            coinTag = bundle.getString("coinTag", "");
+            coinName = bundle.getString("coinName", "");
+        }
+
+        tvCoinName.setText(coinName);
+
         mChart = (LineChart) findViewById(R.id.chart);
         mChart.setPadding(4,4,4,4);
 
@@ -68,7 +103,9 @@ public class CoinDetailsActivity extends BaseActivity {
         mChart.getAxisLeft().setEnabled(false);
 
         // add data
-        setData(45, 100);
+        getCoinDetails(coinTag);
+
+//        setData(45, 100);
         mChart.getLegend().setEnabled(false);
         mChart.animateX(1000);
 
@@ -82,15 +119,25 @@ public class CoinDetailsActivity extends BaseActivity {
         }
     }
 
-    private void setData(int count, float range) {
-
+    private void setData(ArrayList<PricePoint> pricePoints) {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
 
-        for (int i = 0; i < count; i++) {
-            float mult = (range + 1);
-            float val = (float) (Math.random() * mult) + 20;// + (float)
-            // ((mult *0.1) / 10);
-            yVals.add(new Entry(i, val));
+        SimpleDateFormat format = new SimpleDateFormat("MMMM, yyyy");
+        String monthStr = format.format(calendar.getTime());
+        Logger.i("PRICEPOINT " + monthStr);
+        tvPriceTimeline.setText("Price - " + monthStr);
+        PricePoint latestPoint = pricePoints.get(pricePoints.size() - 1);
+        tvPrice.setText(Float.toString(latestPoint.getClose()));
+
+        for (PricePoint point : pricePoints) {
+            calendar.setTimeInMillis(point.getTime() * 1000);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            if (month == calendar.get(Calendar.MONTH)) {
+                yVals.add(new Entry(day, point.getClose()));
+            }
         }
 
         LineDataSet set1;
@@ -133,5 +180,44 @@ public class CoinDetailsActivity extends BaseActivity {
             // set data
             mChart.setData(data);
         }
+    }
+
+    private void getCoinDetails(String coinTag) {
+        Repository repository = Injection.providesRepository(this);
+        HashMap params = new HashMap();
+        Calendar calendar = Calendar.getInstance();
+
+        params.put("fsym", coinTag);
+        params.put("tsym", "INR");
+        params.put("limit", "30");
+        params.put("toTs", calendar.getTimeInMillis() / 1000);
+
+        repository.getCoinDetails(params)
+                .observeOn(Injection.provideSchedulerProvider().ui())
+                .subscribeOn(Injection.provideSchedulerProvider().io())
+                .subscribe(new Observer<PriceDetailsResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull PriceDetailsResponse priceDetailsResponse) {
+                        ArrayList<PricePoint> pricePoints = priceDetailsResponse.getData();
+                        Logger.i("PRICEPOINT size " + pricePoints.size());
+                        setData(pricePoints);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 }

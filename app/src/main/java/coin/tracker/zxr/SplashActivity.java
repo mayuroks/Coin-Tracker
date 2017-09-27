@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,7 +42,7 @@ public class SplashActivity extends BaseActivity {
         startSplashAnimation();
     }
 
-    private void goToCubicLineChart() {
+    private void goToHome() {
         timer = new CountDownTimer(500, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -129,7 +127,7 @@ public class SplashActivity extends BaseActivity {
 
                                     @Override
                                     public void onAnimationEnd(Animator animation) {
-                                        goToCubicLineChart();
+                                        goToHome();
                                     }
 
                                     @Override

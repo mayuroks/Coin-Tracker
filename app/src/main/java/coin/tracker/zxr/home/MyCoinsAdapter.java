@@ -52,7 +52,7 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         DisplayPrice displayPrice = displayPrices.get(position);
-        RawPrice rawPrice = rawPrices.get(position);
+        final RawPrice rawPrice = rawPrices.get(position);
 
         if (displayPrice.getPRICE() != null) {
             holder.tvPrice.setText(displayPrice.getPRICE());
@@ -91,7 +91,13 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
         holder.rlCoinItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, CoinDetailsActivity.class));
+                String coinName = CoinHelper.getInstance()
+                        .getCoinName(rawPrice.getFROMSYMBOL());
+                Intent intent = new Intent(context, CoinDetailsActivity.class);
+                intent.putExtra("coinTag", rawPrice.getFROMSYMBOL());
+                intent.putExtra("coinName", coinName);
+
+                context.startActivity(intent);
             }
         });
     }

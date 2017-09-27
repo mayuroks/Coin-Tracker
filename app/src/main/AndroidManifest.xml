@@ -24,7 +24,7 @@
         <activity
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait" />
-        s
+
         <activity
             android:name=".CubicLineChartActivity"
             android:screenOrientation="portrait" />

@@ -1,6 +1,7 @@
 package coin.tracker.zxr.data;
 
 import coin.tracker.zxr.models.CoinListResponse;
+import coin.tracker.zxr.models.PriceDetailsResponse;
 import coin.tracker.zxr.models.PriceMultiFull;
 
 import java.util.HashMap;
@@ -17,5 +18,7 @@ public interface DataSource {
     Observable<PriceMultiFull> getTrackedCoins(HashMap params);
 
     Observable<CoinListResponse> getAllCoins();
+
+    Observable<PriceDetailsResponse> getCoinDetails(HashMap params);
 
 }

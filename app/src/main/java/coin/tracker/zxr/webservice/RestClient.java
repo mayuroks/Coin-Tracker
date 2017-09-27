@@ -35,14 +35,14 @@ public class RestClient {
                     Request request;
                     Response response;
                     String url = original.url().toString();
-                    Logger.i(url);
+                    Logger.i("OLDURL => " + url);
 
                     if (url.contains("coinlist")) {
                         String newUrl = url.replace(API_BASE_URL_1, API_BASE_URL_2);
                         Request.Builder requestBuilder = original.newBuilder().url(newUrl);
                         request = requestBuilder.build();
                         response = chain.proceed(request);
-                        Logger.i(newUrl);
+                        Logger.i("NEWURL => " + newUrl);
                     } else {
                         response = chain.proceed(original);
                     }

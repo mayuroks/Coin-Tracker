@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvCoinName"
         android:layout_marginTop="8dp"
-        android:text="$ 3,400,00"/>
+        android:text=""/>
 
     <LinearLayout
         android:id="@+id/llMyCoinHeader"
@@ -34,7 +34,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvMyCoinsCount"
+            android:id="@+id/tvPriceTimeline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Price - Last 30 days"/>

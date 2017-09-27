@@ -1,6 +1,7 @@
 package coin.tracker.zxr.data;
 
 import coin.tracker.zxr.models.CoinListResponse;
+import coin.tracker.zxr.models.PriceDetailsResponse;
 import coin.tracker.zxr.models.PriceMultiFull;
 
 import java.util.HashMap;
@@ -30,6 +31,11 @@ public class LocalDataSource implements DataSource {
 
     @Override
     public Observable<CoinListResponse> getAllCoins() {
+        return null;
+    }
+
+    @Override
+    public Observable<PriceDetailsResponse> getCoinDetails(HashMap params) {
         return null;
     }
 }

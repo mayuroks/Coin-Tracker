@@ -3,6 +3,7 @@ package coin.tracker.zxr.data;
 import android.support.annotation.NonNull;
 
 import coin.tracker.zxr.models.CoinListResponse;
+import coin.tracker.zxr.models.PriceDetailsResponse;
 import coin.tracker.zxr.models.PriceMultiFull;
 
 import java.util.HashMap;
@@ -42,5 +43,10 @@ public class Repository implements DataSource {
     @Override
     public Observable<CoinListResponse> getAllCoins() {
         return remoteDataSource.getAllCoins();
+    }
+
+    @Override
+    public Observable<PriceDetailsResponse> getCoinDetails(HashMap params) {
+        return remoteDataSource.getCoinDetails(params);
     }
 }
