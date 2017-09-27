@@ -148,10 +148,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public void showErrorMsg(boolean showError) {
         if (showError) {
-            rvMyCoins.setVisibility(View.GONE);
             llErrorMsg.setVisibility(View.VISIBLE);
         } else {
-            rvMyCoins.setVisibility(View.VISIBLE);
             llErrorMsg.setVisibility(View.GONE);
         }
     }

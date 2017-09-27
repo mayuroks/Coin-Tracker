@@ -4,8 +4,12 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -91,6 +95,15 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void startSplashAnimation() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        final int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivLogo.getLayoutParams();
+        params.topMargin = (int) (0.35 * height);
+        ivLogo.setLayoutParams(params);
+
         ivLogo.animate()
                 .setDuration(1000)
                 .alpha(1f)
@@ -104,9 +117,9 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         tvAppName.animate()
-                                .setDuration(500)
+                                .setDuration(400)
                                 .alpha(1f)
-                                .translationY(-450f)
+                                .translationY(-(float) (0.45 * height))
                                 .setInterpolator(new AccelerateDecelerateInterpolator())
                                 .setListener(new Animator.AnimatorListener() {
                                     @Override
