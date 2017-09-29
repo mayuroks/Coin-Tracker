@@ -78,7 +78,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
 //        mChart.setPadding(4,4,4,4);
 
         // FIXME calculate offset for right
-        mChart.setViewPortOffsets(8, 30, 90, 30);
+        mChart.setViewPortOffsets(6, 30, 90, 30);
 
         // no description text
         mChart.getDescription().setEnabled(false);
