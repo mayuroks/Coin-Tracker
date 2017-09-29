@@ -67,7 +67,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void initView() {
-        initToolbar("Coin Tracker");
+        initToolbar("Coin Tracker", 0);
         setupActionButton();
         setupErrorButton();
         refreshUserCoins();

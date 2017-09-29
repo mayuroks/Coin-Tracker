@@ -5,6 +5,9 @@ package coin.tracker.zxr.utils;
  */
 
 public class TextUtils {
+
+    public static final String IN_FORMAT  = "##,##,###.##";
+
     public static boolean isValidString(String str) {
         if (str != null && str.length() > 0 &&
                 !str.isEmpty() && !str.equalsIgnoreCase("")) {

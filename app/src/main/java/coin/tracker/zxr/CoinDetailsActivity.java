@@ -17,6 +17,7 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.orhanobut.logger.Logger;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ import coin.tracker.zxr.models.PriceDetailsResponse;
 import coin.tracker.zxr.models.PricePoint;
 import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.Injection;
+import coin.tracker.zxr.utils.TextUtils;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -53,7 +55,7 @@ public class CoinDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_detail);
-        initToolbar("Coin Details");
+        initToolbar("Coin Details", R.drawable.ic_back_arrow);
         initUserAction("", 0, false);
 
         Bundle bundle = getIntent().getExtras();
@@ -129,7 +131,9 @@ public class CoinDetailsActivity extends BaseActivity {
         Logger.i("PRICEPOINT " + monthStr);
         tvPriceTimeline.setText("Price - " + monthStr);
         PricePoint latestPoint = pricePoints.get(pricePoints.size() - 1);
-        tvPrice.setText(Float.toString(latestPoint.getClose()));
+        DecimalFormat decimalFormat = new DecimalFormat(TextUtils.IN_FORMAT);
+        String latestPrice = decimalFormat.format(latestPoint.getClose());
+        tvPrice.setText(getString(R.string.rupee_symbol) + " " + latestPrice);
 
         for (PricePoint point : pricePoints) {
             calendar.setTimeInMillis(point.getTime() * 1000);

@@ -1,17 +1,19 @@
 package coin.tracker.zxr;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.webservice.APIService;
 import coin.tracker.zxr.webservice.RestClient;
@@ -26,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     private TextView tvToolbarTitle;
     private RelativeLayout baseLayout;
     public RelativeLayout rlContainer;
+    private ImageView ivToolbarImage;
     public APIService service = RestClient.getAPIService();
 
     @Override
@@ -44,6 +47,7 @@ public class BaseActivity extends AppCompatActivity {
         tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
         rlUserAction = (RelativeLayout) findViewById(R.id.rlUserAction);
         rlContainer = (RelativeLayout) findViewById(R.id.rlContainer);
+        ivToolbarImage = (ImageView) findViewById(R.id.ivToolbarImage);
         setSupportActionBar(toolbar);
         ViewStub stub = (ViewStub) baseLayout.findViewById(R.id.container);
         stub.setLayoutResource(layoutResID);
@@ -56,8 +60,22 @@ public class BaseActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    public void initToolbar(String title) {
-            tvToolbarTitle.setText(title);
+    public void initToolbar(String title, int drawable) {
+        tvToolbarTitle.setText(title);
+        if (drawable != 0) {
+            Drawable drawable1 = ContextCompat.getDrawable(this, drawable);
+            ivToolbarImage.setImageDrawable(drawable1);
+
+            ivToolbarImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        } else {
+            Drawable drawable1 = ContextCompat.getDrawable(this, R.drawable.ic_logo_no_background);
+            ivToolbarImage.setImageDrawable(drawable1);
+        }
     }
 
     public void initUserAction(String action,

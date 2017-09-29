@@ -22,11 +22,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/ivToolbarImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_logo_no_background"/>
+                android:src="@drawable/ic_back_arrow"/>
+
             <TextView
                 style="@style/ToolbarTitleText"
                 android:id="@+id/tvToolbarTitle"

@@ -10,4 +10,5 @@
     <string name="material_icon_close">&#xf136;</string>
     <string name="material_icon_done">&#xf26b;</string>
     <string name="material_icon_refresh">&#xf1b5;</string>
+    <string name="rupee_symbol">\u20B9</string>
 </resources>

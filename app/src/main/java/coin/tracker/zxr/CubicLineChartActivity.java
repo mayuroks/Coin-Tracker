@@ -28,7 +28,7 @@ public class CubicLineChartActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_coin_details);
-        initToolbar("Coin Graph");
+        initToolbar("Coin Graph", 0);
 
         mChart = (LineChart) findViewById(R.id.chart);
         mChart.setBackgroundColor(Color.TRANSPARENT);
