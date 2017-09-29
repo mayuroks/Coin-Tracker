@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -15,7 +16,9 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.orhanobut.logger.Logger;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -25,6 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import coin.tracker.zxr.common.BaseView;
 import coin.tracker.zxr.data.Repository;
 import coin.tracker.zxr.models.PriceDetailsResponse;
 import coin.tracker.zxr.models.PricePoint;
@@ -35,7 +39,7 @@ import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-public class CoinDetailsActivity extends BaseActivity {
+public class CoinDetailsActivity extends BaseActivity implements BaseView {
 
     @BindView(R.id.chart)
     LineChart mChart;
@@ -48,6 +52,9 @@ public class CoinDetailsActivity extends BaseActivity {
 
     @BindView(R.id.tvPrice)
     TextView tvPrice;
+
+    @BindView(R.id.aviLoader)
+    AVLoadingIndicatorView aviLoader;
 
     String coinTag, coinName;
 
@@ -68,10 +75,14 @@ public class CoinDetailsActivity extends BaseActivity {
         tvCoinName.setText(coinName);
 
         mChart = (LineChart) findViewById(R.id.chart);
-        mChart.setPadding(4,4,4,4);
+//        mChart.setPadding(4,4,4,4);
+
+        // FIXME calculate offset for right
+        mChart.setViewPortOffsets(8, 30, 90, 30);
 
         // no description text
         mChart.getDescription().setEnabled(false);
+        mChart.setNoDataText("");
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -109,16 +120,10 @@ public class CoinDetailsActivity extends BaseActivity {
 
 //        setData(45, 100);
         mChart.getLegend().setEnabled(false);
-        mChart.animateX(1000);
+        mChart.animateX(1500);
 
         // dont forget to refresh the drawing
-        mChart.invalidate();
-
-        // TODO Testing
-        if (mChart.getData() != null) {
-            mChart.getData().setHighlightEnabled(!mChart.getData().isHighlightEnabled());
-            mChart.invalidate();
-        }
+//        mChart.invalidate();
     }
 
     private void setData(ArrayList<PricePoint> pricePoints) {
@@ -183,6 +188,9 @@ public class CoinDetailsActivity extends BaseActivity {
 
             // set data
             mChart.setData(data);
+
+            // dont forget to refresh the drawing
+            mChart.invalidate();
         }
     }
 
@@ -196,6 +204,7 @@ public class CoinDetailsActivity extends BaseActivity {
         params.put("limit", "30");
         params.put("toTs", calendar.getTimeInMillis() / 1000);
 
+        showProgress();
         repository.getCoinDetails(params)
                 .observeOn(Injection.provideSchedulerProvider().ui())
                 .subscribeOn(Injection.provideSchedulerProvider().io())
@@ -209,12 +218,14 @@ public class CoinDetailsActivity extends BaseActivity {
                     public void onNext(@NonNull PriceDetailsResponse priceDetailsResponse) {
                         ArrayList<PricePoint> pricePoints = priceDetailsResponse.getData();
                         Logger.i("PRICEPOINT size " + pricePoints.size());
+                        hideProgress();
                         setData(pricePoints);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        hideProgress();
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -223,5 +234,25 @@ public class CoinDetailsActivity extends BaseActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+
+    }
+
+    @Override
+    public void showProgress() {
+        aviLoader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        aviLoader.setVisibility(View.GONE);
     }
 }
