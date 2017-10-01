@@ -20,7 +20,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import coin.tracker.zxr.BaseActivity;
 import coin.tracker.zxr.R;
-import coin.tracker.zxr.data.Repository;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
@@ -28,10 +27,7 @@ import coin.tracker.zxr.search.SearchCoinsActivity;
 import coin.tracker.zxr.utils.CoinHelper;
 import coin.tracker.zxr.utils.FontManager;
 import coin.tracker.zxr.utils.Injection;
-import coin.tracker.zxr.utils.schedulers.SchedulerProvider;
-import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
+import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 
 public class HomeActivity extends BaseActivity implements HomeContract.View {
 
@@ -124,9 +120,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
             myCoinsAdapter = new MyCoinsAdapter(this, displayPrices, rawPrices);
             layoutManager = new LinearLayoutManager(this);
+            ScaleInAnimator animator = new ScaleInAnimator();
+            animator.setChangeDuration(2000);
             rvMyCoins.setAdapter(myCoinsAdapter);
             rvMyCoins.setLayoutManager(layoutManager);
             rvMyCoins.setNestedScrollingEnabled(false);
+            rvMyCoins.setItemAnimator(animator);
 
             if (!isRefreshUserCoins) {
                 // add item decoration only once
@@ -166,45 +165,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         presenter.getTrackedCoinData(params);
     }
 
-    private void testAPICall() {
-        Logger.i("testAPICall called");
-        Repository repository = Injection.providesRepository(this);
-        SchedulerProvider schedulerProvider = SchedulerProvider.getInstance();
-
-        HashMap params = new HashMap();
-        params.put("fsyms", "BTC,ETH,LTC");
-        params.put("tsyms", "INR");
-
-        repository.getTrackedCoins(params)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe(new Observer<PriceMultiFull>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull PriceMultiFull priceMultiFull) {
-                        Logger.i("tsyms onNext");
-                        HashMap map = priceMultiFull.getDISPLAY();
-                        DisplayPrice price = (DisplayPrice) map.get("BTC");
-                        Logger.i(price.getPRICE());
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Logger.i("tsyms error");
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
     private void setupActionButton() {
         TextView tvActionButton = (TextView) findViewById(R.id.tvActionButton);
         TextView tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
@@ -226,5 +186,4 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         Typeface fontawesome = FontManager.getTypeface(this, FontManager.FONTMATERIAL);
         FontManager.setTypeface(tvRefresh, fontawesome);
     }
-
 }

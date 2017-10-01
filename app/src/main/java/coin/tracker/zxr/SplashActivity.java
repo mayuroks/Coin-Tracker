@@ -61,7 +61,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void getAllCoins() {
-        if (CoinHelper.getInstance().getAllCachedCoins().size() > 0) return;
+        if (CoinHelper.getInstance().getAllCachedCoinTags().size() > 0) return;
 
         service.getAllCoins()
                 .subscribeOn(Injection.provideSchedulerProvider().io())
@@ -74,14 +74,15 @@ public class SplashActivity extends BaseActivity {
 
                     @Override
                     public void onNext(@NonNull CoinListResponse coinListResponse) {
-                        Logger.i("getAllCoins", "getAllCoins done");
-                        CoinHelper.getInstance()
-                                .updateAllCachedCoins(coinListResponse.getData(), true);
+                        Logger.i("getAllCoins done");
+                        CoinHelper coinHelper = CoinHelper.getInstance();
+                        coinHelper.setContext(SplashActivity.this);
+                        coinHelper.updateAllCachedCoins(coinListResponse.getData(), true);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Logger.i("getAllCoins", "getAllCoins error");
+                        Logger.i("getAllCoins error");
                         e.printStackTrace();
                     }
 

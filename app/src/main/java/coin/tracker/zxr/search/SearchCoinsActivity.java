@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,10 +41,10 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
 
     AllCoinsAdapter allCoinsAdapter;
     LinearLayoutManager layoutManager;
-    HashMap<String, String> selectedCoins = new HashMap<>();
     private EndlessRecyclerViewScrollListener scrollListener;
-    ArrayList<String> allCoinNames;
-    ArrayList<String> allCoinTags;
+    ArrayList<String> allCoinNames = new ArrayList<>();
+    ArrayList<String> allCoinTags = new ArrayList<>();
+    HashMap<String, String> selectedCoins = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +52,10 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
         setContentView(R.layout.activity_search_coins);
         getSupportActionBar().hide();
         setupActionButton();
-
         setupSearchBar();
-        allCoinNames = CoinHelper.getInstance().getAllCoinsNames();
-        allCoinTags = CoinHelper.getInstance().getAllCachedCoins();
+
+        allCoinNames = CoinHelper.getInstance().getAllCachedCoinNames();
+        allCoinTags = CoinHelper.getInstance().getAllCachedCoinTags();
 
         // Search activity doesn't have a toolbar. Adding this rule, since
         // To prevent search bar from coming down near useractionbar

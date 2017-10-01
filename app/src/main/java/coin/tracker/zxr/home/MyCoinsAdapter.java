@@ -50,7 +50,7 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         DisplayPrice displayPrice = displayPrices.get(position);
         final RawPrice rawPrice = rawPrices.get(position);
 
@@ -100,6 +100,15 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
                 context.startActivity(intent);
             }
         });
+
+        holder.tvRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String coinTag = rawPrice.getFROMSYMBOL();
+                CoinHelper.getInstance().deleteUserCoin(coinTag);
+                remove(holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -124,9 +133,18 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
         @BindView(R.id.rlCoinItem)
         RelativeLayout rlCoinItem;
 
+        @BindView(R.id.tvRemove)
+        TextView tvRemove;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private void remove(int position) {
+        this.displayPrices.remove(position);
+        this.rawPrices.remove(position);
+        notifyItemRemoved(position);
     }
 }

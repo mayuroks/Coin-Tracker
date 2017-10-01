@@ -10,14 +10,14 @@
 
     <TextView
         style="@style/ClickableText"
-        android:id="@+id/tvSetPriceAlert"
+        android:id="@+id/tvRemove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textEnd"
         android:layout_gravity="end"
         android:paddingTop="6dp"
         android:paddingRight="20dp"
-        android:text="Set price alert"/>
+        android:text="Remove"/>
 
     <RelativeLayout
         android:id="@+id/rlCoinTag"

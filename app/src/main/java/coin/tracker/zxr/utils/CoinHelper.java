@@ -1,5 +1,9 @@
 package coin.tracker.zxr.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
+
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.logger.Logger;
 
@@ -14,9 +18,13 @@ import coin.tracker.zxr.models.CoinListItem;
 
 public class CoinHelper {
 
+    private Context context;
+    private static ArrayList<String> allCachedCoinTags = new ArrayList<>();
+    private static ArrayList<String> allCachedCoinNames = new ArrayList<>();
     private static CoinHelper INSTANCE;
     private static final int COIN_ITEMS_PER_PAGE = 50;
-    private final String ALL_COINTAG_LIST = "allCoinList";
+    public static final String ALL_COINS_CACHING_COMPLETED = "allCoinsCachingCompleted";
+    private final String ALL_COIN_TAGS_LIST = "allCoinList";
     private final String ALL_COIN_NAMES_LIST = "allCoinNamesList";
     private final String USER_COIN_LIST = "coinList";
     private final String BTC = "BTC", ETH = "ETH", LTC = "LTC";
@@ -36,6 +44,10 @@ public class CoinHelper {
         }
 
         return INSTANCE;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     /*
@@ -106,7 +118,7 @@ public class CoinHelper {
     private void deleteCoinFromList(String symbol) {
         ArrayList<String> coins = Hawk.get(USER_COIN_LIST, new ArrayList<String>());
 
-        if (!coins.contains(symbol)) {
+        if (coins.contains(symbol)) {
             coins.remove(symbol);
             Hawk.put(USER_COIN_LIST, coins);
         }
@@ -125,7 +137,6 @@ public class CoinHelper {
     * Remove a tracked coin based on symbol
     * */
     public void deleteUserCoin(String symbol) {
-        Hawk.delete(symbol);
         deleteCoinFromList(symbol);
     }
 
@@ -134,45 +145,90 @@ public class CoinHelper {
     * */
     public void updateAllCachedCoins(HashMap<String, CoinListItem> allCoins,
                                      boolean isForced) {
-        ArrayList<String> allCachedCoins = getAllCachedCoins();
-        ArrayList<String> allCachedCoinNames = new ArrayList<>();
+        ArrayList<String> allCachedCoinTags1 = getAllCachedCoinTags();
+        ArrayList<String> allCachedCoinNames1 = new ArrayList<>();
 
         // update all cached coins only
         // if size is 0 OR if the update is forced
-        if (allCachedCoins.size() == 0 || isForced) {
+        Logger.i("INITLIST allCoinTags started");
+        if (allCachedCoinTags1.size() == 0 || isForced) {
+            /*
+            * Updating In memory first
+            * */
             for (String coinTag : allCoins.keySet()) {
                 String coinName = allCoins.get(coinTag).getCoinName();
 
                 if (TextUtils.isValidString(coinTag) &&
                         TextUtils.isValidString(coinName))
-                    allCachedCoins.add(coinTag);
-                allCachedCoinNames.add(coinName);
+                    allCachedCoinTags1.add(coinTag);
+                allCachedCoinNames1.add(coinName);
+            }
+
+            allCachedCoinTags = allCachedCoinTags1;
+            allCachedCoinNames = allCachedCoinNames1;
+
+            /*
+            * Updating in Hawk now
+            * */
+            for (String coinTag : allCoins.keySet()) {
+                String coinName = allCoins.get(coinTag).getCoinName();
+
+                if (TextUtils.isValidString(coinTag) &&
+                        TextUtils.isValidString(coinName))
+                    allCachedCoinTags1.add(coinTag);
+                allCachedCoinNames1.add(coinName);
 
                 // Save coinTag and coinName in Hawk
                 Hawk.put(coinTag, coinName);
             }
 
-            Hawk.put(ALL_COIN_NAMES_LIST, allCachedCoinNames);
-            Hawk.put(ALL_COINTAG_LIST, allCachedCoins);
+            Logger.i("INITLIST allCoinTags inserted");
 
-            Logger.i("INITLIST allCoinNames size " + allCachedCoinNames.size());
-            Logger.i("INITLIST allCoinTags size " + allCachedCoins.size());
+            Hawk.put(ALL_COIN_NAMES_LIST, allCachedCoinNames1);
+            Logger.i("INITLIST allCoinNames size " + allCachedCoinNames1.size());
+
+            Hawk.put(ALL_COIN_TAGS_LIST, allCachedCoinTags1);
+            Logger.i("INITLIST allCoinTags size " + allCachedCoinTags1.size());
+
+            if (context != null) {
+                Intent intent = new Intent(ALL_COINS_CACHING_COMPLETED);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                Logger.i("INITLIST allCoinTags broadcast sent");
+            } else {
+                Logger.i("INITLIST allCoinTags broadcast context is null");
+            }
         }
     }
 
     /*
-    * Get all cached coins
+    * Get all cached coin tags
     * */
-    public ArrayList<String> getAllCachedCoins() {
-        return Hawk.get(ALL_COINTAG_LIST,
-                new ArrayList<String>());
+    public ArrayList<String> getAllCachedCoinTags() {
+        if (allCachedCoinTags.size() == 0) {
+            allCachedCoinTags = Hawk.get(ALL_COIN_TAGS_LIST,
+                    new ArrayList<String>());
+        }
+
+        return allCachedCoinTags;
+    }
+
+    /*
+    * AutoComplete results
+    * */
+    public ArrayList<String> getAllCachedCoinNames() {
+        if (allCachedCoinNames.size() == 0) {
+            allCachedCoinNames = Hawk.get(ALL_COIN_NAMES_LIST,
+                    new ArrayList<String>());
+        }
+
+        return allCachedCoinNames;
     }
 
     /*
     * Get cached coins in chunks rather than all at once
     * */
     public ArrayList<String> getCachedCoinsByPage(int page) {
-        ArrayList<String> cachedCoins = getAllCachedCoins();
+        ArrayList<String> cachedCoins = getAllCachedCoinTags();
         ArrayList<String> pagedCoins = new ArrayList<>();
 
         int start = page * COIN_ITEMS_PER_PAGE;
@@ -185,14 +241,6 @@ public class CoinHelper {
         }
 
         return pagedCoins;
-    }
-
-    /*
-    * AutoComplete results
-    * */
-    public ArrayList<String> getAllCoinsNames() {
-        return Hawk.get(ALL_COIN_NAMES_LIST,
-                new ArrayList<String>());
     }
 
 }
