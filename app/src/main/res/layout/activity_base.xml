@@ -5,23 +5,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.tracker.coin.BaseActivity">
+    android:background="@color/colorPrimary"
+    tools:context="coin.tracker.zxr.BaseActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryLight"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:contentInsetStart="0dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/ivToolbarImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_back_arrow"/>
+
             <TextView
+                style="@style/ToolbarTitleText"
                 android:id="@+id/tvToolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,10 +41,54 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ViewStub
-        android:id="@+id/container"
+    <RelativeLayout
+        android:id="@+id/rlContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/rlUserAction">
 
+        <ViewStub
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlUserAction"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tvUserAction"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/colorPrimaryLight"
+            android:layout_alignParentBottom="true" />
+
+        <TextView
+            android:id="@+id/tvActionButton"
+            style="@style/LargeIconFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="28dp"
+            android:text="x"
+            android:gravity="center"
+            android:background="@drawable/bg_round_accent_filled" />
+
+        <TextView
+            android:id="@+id/tvActionDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Action text"/>
+
+    </RelativeLayout>
 </RelativeLayout>

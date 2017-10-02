@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="coin.tracker.zxr.search.SearchCoinsActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlSearch"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_height="64dp">
+
+        <EditText
+            style="@style/XXNormalFadedText"
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/margin_left"
+            android:paddingRight="@dimen/margin_right"
+            android:inputType="textFilter|textNoSuggestions"
+            android:hint="Search"
+            android:background="@drawable/bg_item_rounded_rectangle"
+            android:textColorHint="@color/colorFadedText" />
+        
+        <TextView
+            android:id="@+id/tvClearSearch"
+            style="@style/LargeIconFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorFadedText"
+            android:text="@string/material_icon_close"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llSelectedCoins"
+        android:layout_below="@+id/rlSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvSelectedCoinsCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selected Coins(0)"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorSeparator"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvAllCoins"
+        android:layout_below="@id/llSelectedCoins"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutAnimation="@anim/layout_animation_slide_from_bottom">
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

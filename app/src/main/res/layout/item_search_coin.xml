@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_item_rounded_rectangle"
+    android:layout_width="match_parent"
+    android:layout_height="96dp">
+
+    <RelativeLayout
+        android:id="@+id/rlCoinTag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_round_accent_filled" />
+
+        <TextView
+            android:id="@+id/tvCoinTag"
+            style="@style/XXNormalTextBold"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TAG"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/rlCoinTag">
+
+        <TextView
+            style="@style/XNormalText"
+            android:id="@+id/tvCoinName"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BitCoin" />
+
+        <CheckBox
+            android:id="@+id/cbSelectedCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="0dp"
+            android:layout_marginRight="20dp"
+            android:buttonTint="@color/colorAccent"
+            android:checked="false"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

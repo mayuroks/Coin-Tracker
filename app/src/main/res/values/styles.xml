@@ -9,4 +9,72 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+    <style name="ToolbarTitleText">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SectionHeaderText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="XXNormalTextBold">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+        <item name="android:textSize">@dimen/text_xxnormal</item>
+    </style>
+
+    <style name="XXNormalText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_xxnormal</item>
+    </style>
+
+    <style name="XXNormalFadedText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_xxnormal</item>
+        <item name="android:textColor">@color/colorFadedText</item>
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="XXXNormalTextBold">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+        <item name="android:textSize">@dimen/text_xxxnormal</item>
+    </style>
+
+    <style name="ClickableText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+    
+    <style name="DeltaText">
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorChangeIncrement</item>
+    </style>
+
+    <style name="NormalText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="XNormalText">
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textSize">@dimen/text_xnormal</item>
+    </style>
+
+    <style name="LargeIconFont">
+        <item name="android:textSize">@dimen/text_xxlarge</item>
+    </style>
+
+    <style name="HeaderText1">
+        <item name="android:textSize">@dimen/text_Header</item>
+        <item name="fontPath">fonts/lato_bold.ttf</item>
+    </style>
+
+    <style name="HeaderText2">
+        <item name="android:textSize">@dimen/text_Header</item>
+        <item name="fontPath">fonts/lato_regular.ttf</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
 </resources>

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Coin Tracker</string>
+    <string name="up_caret">&#9650;</string>
+    <string name="down_caret">&#9660;</string>
+    <string name="fa_icon_areachart">&#xf1fe;</string>
+    <string name="fa_icon_piechart">&#xf200;</string>
+    <string name="fa_icon_linechart">&#xf201;</string>
+    <string name="fa_icon_plus">&#xf067;</string>
+    <string name="material_icon_plus">&#xf278;</string>
+    <string name="material_icon_close">&#xf136;</string>
+    <string name="material_icon_done">&#xf26b;</string>
+    <string name="material_icon_refresh">&#xf1b5;</string>
+    <string name="rupee_symbol">\u20B9</string>
+    <string name="rupee_symbol_placeholder">"\u20B9 --"</string>
 </resources>
