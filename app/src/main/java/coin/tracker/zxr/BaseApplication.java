@@ -25,7 +25,12 @@ public class BaseApplication extends MultiDexApplication {
 
         MultiDex.install(this);
 
-        Logger.addLogAdapter(new AndroidLogAdapter());
+        Logger.addLogAdapter(new AndroidLogAdapter() {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.DEBUG;
+            }
+        });
 
         Hawk.init(getBaseContext()).build();
 

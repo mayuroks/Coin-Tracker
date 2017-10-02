@@ -4,6 +4,7 @@ import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
+import coin.tracker.zxr.BuildConfig;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -74,7 +75,9 @@ public class RestClient {
     * */
     private static HttpLoggingInterceptor getLoggerInterceptor() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if (BuildConfig.DEBUG) {
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        }
         return logging;
     }
 }
