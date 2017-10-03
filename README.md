@@ -7,8 +7,11 @@
 
 ## Features
 - Track you favourite coins
-- View performance of coins
-- Add more coins
+  - Want an update on current coins prices? Its right on your home screen.
+- View performance
+  - How much did the coin's price rise or fall? See it here.
+- Search coins
+  - Heard of an exiting new coin? Search it here.
 
 ## Screenshots
 <p>
