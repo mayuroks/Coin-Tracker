@@ -26,7 +26,9 @@ Coin Tracker is exactly the app for this job. It allows you to track prices of y
 
 
 ## Play Store
+
 Click the below Play Store icon
+
 <a href="https://play.google.com/store/apps/details?id=coin.tracker.zxr">
   <image align="left" height="25%" width="25%" src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"></image>
 </a>
@@ -35,7 +37,7 @@ Click the below Play Store icon
 
 Scan the QR code to download the app
 
-<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcoin.tracker.zxr&amp;qzone=1&amp;margin=0&amp;size=100x100&amp;ecc=L" alt="qr code" />
+<img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcoin.tracker.zxr&amp;qzone=1&amp;margin=0&amp;size=200x200&amp;ecc=L" alt="qr code" />
 
 ## Motivation
 Being an app developer, I am good at coding apps. But an app is quite different from a product. So the main purpose of this app is to create a side project and ship it like a product.
