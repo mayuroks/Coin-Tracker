@@ -30,7 +30,7 @@ Coin Tracker is exactly the app for this job. It allows you to track prices of y
 Click the below Play Store icon
 
 <a href="https://play.google.com/store/apps/details?id=coin.tracker.zxr">
-  <image align="left" height="25%" width="25%" src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"></image>
+  <image height="25%" width="25%" src="https://storage.googleapis.com/support-kms-prod/D90D94331E54D2005CC8CEE352FF98ECF639"></image>
 </a>
 
 ### OR 
