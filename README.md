@@ -42,3 +42,6 @@ This is a side-project app to experiment/play around with Android framework. Sin
 
 ## License
 MIT
+
+---
+> Github [@mayuroks](https://github.com/mayuroks) ~ Twitter [@mayuroks](https://twitter.com/mayuroks) ~ Medium [@mayuroks](https://medium.com/@mayuroks)
