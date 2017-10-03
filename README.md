@@ -3,7 +3,11 @@
 </p>
 
 <h1 align="center"> Coin Tracker </h1>
-<h4 align="center">A minimal android app to track different cryptocurrencies.</h4>
+<h4 align="center">A minimal Android app to track cryptocurrencies.</h4>
+
+Cryptocurrencies like Bitcoin, Ethereum etc. are rising in popularity and along with it cryptocurrency trading. To take advantage of cryptocurrency trading, one needs to stay updated with latest coin prices.
+
+Coin Tracker is exactly the app for this job. It allows you to track prices of your favourite coins, view their performance and search for new ones.
 
 ## Features
 - Track you favourite coins
