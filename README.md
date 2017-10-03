@@ -6,9 +6,17 @@
 <h4 align="center">A minimal android app to track different cryptocurrencies.</h4>
 
 ## Features
-Track
-Add
-View
+- Track you favourite coins
+- View performance of coins
+- Add more coins
+
+## Screenshots
+<p align="center">
+  <image width="25%" height="25%" hspace="20" src="https://github.com/mayuroks/Coin-Tracker/blob/develop/screenshots/track.png"></image>
+  <image width="25%" height="25%" hspace="20" src="https://github.com/mayuroks/Coin-Tracker/blob/develop/screenshots/view_coin_performance.png"></image>
+  <image width="25%" height="25%" hspace="20" src="https://github.com/mayuroks/Coin-Tracker/blob/develop/screenshots/add_new_coin.png"></image>
+</p>
+
 
 ## Play Store
 
