@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -112,6 +114,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         y.setDrawGridLines(true);
         y.setAxisLineColor(Color.TRANSPARENT);
         y.setAxisLineWidth(0f);
+        y.setValueFormatter(new MyYAxisValueFormatter());
 
         mChart.getAxisLeft().setEnabled(false);
 
@@ -254,5 +257,18 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     @Override
     public void hideProgress() {
         aviLoader.setVisibility(View.GONE);
+    }
+
+    class MyYAxisValueFormatter implements IAxisValueFormatter {
+        private DecimalFormat mFormat;
+
+        public MyYAxisValueFormatter() {
+            mFormat = new DecimalFormat(TextUtils.IN_FORMAT);
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return mFormat.format(value);
+        }
     }
 }
