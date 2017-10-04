@@ -71,9 +71,9 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
 
         if (TextUtils.isValidString(displayTag)) {
             if (displayTag.length() > 4) {
-                displayTag = displayTag.substring(0, 4);
+                displayTag = displayTag.substring(0, 4) + "..";
             }
-            holder.tvCoinTag.setText(displayTag + "..");
+            holder.tvCoinTag.setText(displayTag);
         }
 
         holder.cbSelectedCoin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

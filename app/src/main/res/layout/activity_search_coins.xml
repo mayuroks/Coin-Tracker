@@ -12,7 +12,7 @@
         android:id="@+id/rlSearch"
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginTop="16dp"
         android:layout_height="64dp">
 
         <EditText
