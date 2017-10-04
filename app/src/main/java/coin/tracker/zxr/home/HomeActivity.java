@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
+import com.tapadoo.alerter.Alerter;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -72,6 +73,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void onResume() {
         super.onResume();
+        if (isCoinAdded) {
+            Alerter.create(this)
+                    .setTitle("Your coin(s) have been added")
+                    .setBackgroundColorRes(R.color.colorAccent)
+                    .setIcon(R.drawable.alerter_ic_face)
+                    .setDuration(2000)
+                    .show();
+            isCoinAdded = false;
+        }
+
         /*
         * If saved coin and rvCoinCount
         * is not the same refresh the UI
@@ -95,11 +106,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void showProgress() {
+        rvMyCoins.setVisibility(View.GONE);
         aviLoader.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
+        rvMyCoins.setVisibility(View.VISIBLE);
         aviLoader.setVisibility(View.GONE);
     }
 

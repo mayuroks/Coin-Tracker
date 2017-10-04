@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -32,6 +33,7 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
     ArrayList<DisplayPrice> displayPrices;
     ArrayList<RawPrice> rawPrices;
     Context context;
+    DecimalFormat format = new DecimalFormat(TextUtils.IN_FORMAT);
 
     public MyCoinsAdapter(Context context,
                           ArrayList<DisplayPrice> displayPrices,
@@ -55,7 +57,8 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
         final RawPrice rawPrice = rawPrices.get(position);
 
         if (displayPrice.getPRICE() != null) {
-            holder.tvPrice.setText(displayPrice.getPRICE());
+            String formattedPrice = format.format(Float.parseFloat(rawPrice.getPRICE()));
+            holder.tvPrice.setText(formattedPrice);
         } else {
             holder.tvPrice.setText("n/a");
         }

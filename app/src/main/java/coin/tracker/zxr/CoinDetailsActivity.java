@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -78,7 +80,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
 //        mChart.setPadding(4,4,4,4);
 
         // FIXME calculate offset for right
-        mChart.setViewPortOffsets(6, 30, 90, 30);
+        mChart.setViewPortOffsets(6, 30, 90, 60);
 
         // no description text
         mChart.getDescription().setEnabled(false);
@@ -112,6 +114,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         y.setDrawGridLines(true);
         y.setAxisLineColor(Color.TRANSPARENT);
         y.setAxisLineWidth(0f);
+        y.setValueFormatter(new MyYAxisValueFormatter());
 
         mChart.getAxisLeft().setEnabled(false);
 
@@ -135,10 +138,14 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         String monthStr = format.format(calendar.getTime());
         Logger.i("PRICEPOINT " + monthStr);
         tvPriceTimeline.setText("Price - " + monthStr);
+
         PricePoint latestPoint = pricePoints.get(pricePoints.size() - 1);
         DecimalFormat decimalFormat = new DecimalFormat(TextUtils.IN_FORMAT);
         String latestPrice = decimalFormat.format(latestPoint.getClose());
         tvPrice.setText(getString(R.string.rupee_symbol) + " " + latestPrice);
+
+        float rightOffset = getRightOffset(Integer.toString((int) latestPoint.getClose()));
+        mChart.setViewPortOffsets(6, 30, rightOffset, 60);
 
         for (PricePoint point : pricePoints) {
             calendar.setTimeInMillis(point.getTime() * 1000);
@@ -254,5 +261,24 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     @Override
     public void hideProgress() {
         aviLoader.setVisibility(View.GONE);
+    }
+
+    private float getRightOffset(String price) {
+        Logger.i("OFFSET " + price.length() * 20);
+        Logger.i("OFFSET " + price);
+        return price.length() * 20;
+    }
+
+    class MyYAxisValueFormatter implements IAxisValueFormatter {
+        private DecimalFormat mFormat;
+
+        public MyYAxisValueFormatter() {
+            mFormat = new DecimalFormat(TextUtils.IN_FORMAT);
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return mFormat.format(value);
+        }
     }
 }

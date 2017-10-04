@@ -92,10 +92,6 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
                 Logger.i("COINLIST reached end page " + page);
-                Toast.makeText(SearchCoinsActivity.this,
-                        "Page reached " + Integer.toString(page),
-                        Toast.LENGTH_LONG)
-                        .show();
                 loadNextData(page);
             }
         };
@@ -118,6 +114,7 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
                 for (String coinTag : selectedCoins.keySet()) {
                     CoinHelper.getInstance()
                             .addUserCoin(coinTag, selectedCoins.get(coinTag));
+                    isCoinAdded = true;
                 }
 
                 dismissView();

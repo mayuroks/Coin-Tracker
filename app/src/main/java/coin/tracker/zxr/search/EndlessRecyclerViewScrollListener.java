@@ -5,8 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.orhanobut.logger.Logger;
-
 /**
  * Created by Mayur on 23-09-2017.
  */
@@ -92,10 +90,6 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         // threshold should reflect how many total columns there are too
-        Logger.i("ENDLESS loading " + Boolean.toString(loading));
-        Logger.i("ENDLESS lastVisibleItemPosition " + Integer.toString(lastVisibleItemPosition));
-        Logger.i("ENDLESS visibleThreshold " + Integer.toString(visibleThreshold));
-        Logger.i("ENDLESS totalItemCount " + Integer.toString(totalItemCount));
         if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
             currentPage++;
             onLoadMore(currentPage, totalItemCount, view);
