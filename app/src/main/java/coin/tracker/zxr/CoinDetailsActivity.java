@@ -80,7 +80,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
 //        mChart.setPadding(4,4,4,4);
 
         // FIXME calculate offset for right
-        mChart.setViewPortOffsets(6, 30, 90, 30);
+        mChart.setViewPortOffsets(6, 30, 90, 60);
 
         // no description text
         mChart.getDescription().setEnabled(false);
@@ -138,10 +138,14 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         String monthStr = format.format(calendar.getTime());
         Logger.i("PRICEPOINT " + monthStr);
         tvPriceTimeline.setText("Price - " + monthStr);
+
         PricePoint latestPoint = pricePoints.get(pricePoints.size() - 1);
         DecimalFormat decimalFormat = new DecimalFormat(TextUtils.IN_FORMAT);
         String latestPrice = decimalFormat.format(latestPoint.getClose());
         tvPrice.setText(getString(R.string.rupee_symbol) + " " + latestPrice);
+
+        float rightOffset = getRightOffset(Integer.toString((int) latestPoint.getClose()));
+        mChart.setViewPortOffsets(6, 30, rightOffset, 60);
 
         for (PricePoint point : pricePoints) {
             calendar.setTimeInMillis(point.getTime() * 1000);
@@ -257,6 +261,12 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     @Override
     public void hideProgress() {
         aviLoader.setVisibility(View.GONE);
+    }
+
+    private float getRightOffset(String price) {
+        Logger.i("OFFSET " + price.length() * 20);
+        Logger.i("OFFSET " + price);
+        return price.length() * 20;
     }
 
     class MyYAxisValueFormatter implements IAxisValueFormatter {
