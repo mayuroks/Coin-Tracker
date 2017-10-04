@@ -114,6 +114,7 @@ public class SearchCoinsActivity extends BaseActivity implements SearchCoinListe
                 for (String coinTag : selectedCoins.keySet()) {
                     CoinHelper.getInstance()
                             .addUserCoin(coinTag, selectedCoins.get(coinTag));
+                    isCoinAdded = true;
                 }
 
                 dismissView();

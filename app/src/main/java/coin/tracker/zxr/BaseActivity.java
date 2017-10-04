@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     private RelativeLayout baseLayout;
     public RelativeLayout rlContainer;
     private ImageView ivToolbarImage;
+    public static boolean isCoinAdded = false;
     public APIService service = RestClient.getAPIService();
 
     @Override
