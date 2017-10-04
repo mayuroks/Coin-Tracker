@@ -54,7 +54,6 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_search_coin, parent, false);
-
         return new ViewHolder(v);
     }
 
@@ -62,6 +61,7 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         final String coinTag = coinTags.get(position);
         final String coinName = coinHelper.getCoinName(coinTag);
+        String displayTag = coinTag;
 
         if (TextUtils.isValidString(coinName)) {
             holder.tvCoinName.setText(coinName);
@@ -69,8 +69,11 @@ public class AllCoinsAdapter extends RecyclerView.Adapter<AllCoinsAdapter.ViewHo
             holder.tvCoinName.setText("n/a");
         }
 
-        if (TextUtils.isValidString(coinTag)) {
-            holder.tvCoinTag.setText(coinTag);
+        if (TextUtils.isValidString(displayTag)) {
+            if (displayTag.length() > 4) {
+                displayTag = displayTag.substring(0, 4);
+            }
+            holder.tvCoinTag.setText(displayTag + "..");
         }
 
         holder.cbSelectedCoin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
