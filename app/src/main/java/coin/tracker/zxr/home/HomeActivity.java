@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.tapadoo.alerter.Alerter;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -73,16 +72,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void onResume() {
         super.onResume();
-        if (isCoinAdded) {
-            Alerter.create(this)
-                    .setTitle("Your coin(s) have been added")
-                    .setBackgroundColorRes(R.color.colorAccent)
-                    .setIcon(R.drawable.alerter_ic_face)
-                    .setDuration(2000)
-                    .show();
-            isCoinAdded = false;
-        }
-
         /*
         * If saved coin and rvCoinCount
         * is not the same refresh the UI
@@ -127,7 +116,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                         R.drawable.bg_rv_separator));
 
         if (display.size() > 0) {
-            Logger.i("display size > 0");
             displayPrices = priceMultiFull.getDisplayPrices();
             rawPrices = priceMultiFull.getRawPrices();
 
@@ -145,6 +133,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 rvMyCoins.addItemDecoration(dividerItemDecoration);
             } else {
                 isRefreshUserCoins = false;
+            }
+
+            if (isCoinAdded) {
+                Alerter.create(this)
+                        .setTitle("Your coin(s) have been added")
+                        .setBackgroundColorRes(R.color.colorPositiveNotification)
+                        .setIcon(R.drawable.ic_thumbs_up_o)
+                        .setDuration(2000)
+                        .show();
+                isCoinAdded = false;
             }
         } else {
             // TODO show meaningful error
