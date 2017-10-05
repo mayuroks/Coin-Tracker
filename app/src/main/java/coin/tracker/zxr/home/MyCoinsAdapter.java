@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import coin.tracker.zxr.models.RawPrice;
 import coin.tracker.zxr.utils.CoinHelper;
+import coin.tracker.zxr.utils.Constants;
 import coin.tracker.zxr.utils.TextUtils;
 
 /**
@@ -97,9 +98,8 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
                 String coinName = CoinHelper.getInstance()
                         .getCoinName(rawPrice.getFROMSYMBOL());
                 Intent intent = new Intent(context, CoinDetailsActivity.class);
-                intent.putExtra("coinTag", rawPrice.getFROMSYMBOL());
-                intent.putExtra("coinName", coinName);
-
+                intent.putExtra(Constants.COIN_TAG, rawPrice.getFROMSYMBOL());
+                intent.putExtra(Constants.COIN_NAME, coinName);
                 context.startActivity(intent);
             }
         });
