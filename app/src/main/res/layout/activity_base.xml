@@ -20,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <ImageView
                 android:id="@+id/ivToolbarImage"
@@ -40,6 +40,17 @@
                 android:layout_centerVertical="true"
                 android:paddingLeft="20dp"
                 android:text="Toolbar"
+                android:textAlignment="center"/>
+
+            <TextView
+                style="@style/ClickableText"
+                android:id="@+id/tvAbout"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="4dp"
+                android:text="About"
                 android:textAlignment="center"/>
         </RelativeLayout>
 

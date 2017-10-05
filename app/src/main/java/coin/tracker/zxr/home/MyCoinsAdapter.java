@@ -102,7 +102,7 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
                 }
             }
         });
-        
+
 //        holder.tvPriceGraph.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

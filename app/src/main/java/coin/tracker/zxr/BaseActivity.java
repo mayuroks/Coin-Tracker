@@ -1,6 +1,7 @@
 package coin.tracker.zxr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -62,6 +63,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void initToolbar(String title, int drawable) {
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BaseActivity.this, AboutMe.class));
+            }
+        });
+
         tvToolbarTitle.setText(title);
         if (drawable != 0) {
             Drawable drawable1 = ContextCompat.getDrawable(this, drawable);
