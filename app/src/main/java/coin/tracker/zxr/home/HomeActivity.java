@@ -19,12 +19,14 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.OnClick;
 import coin.tracker.zxr.BaseActivity;
+import coin.tracker.zxr.CoinDetailsActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
 import coin.tracker.zxr.search.SearchCoinsActivity;
 import coin.tracker.zxr.utils.CoinHelper;
+import coin.tracker.zxr.utils.Constants;
 import coin.tracker.zxr.utils.FontManager;
 import coin.tracker.zxr.utils.Injection;
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
@@ -119,7 +121,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             displayPrices = priceMultiFull.getDisplayPrices();
             rawPrices = priceMultiFull.getRawPrices();
 
-            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices, rawPrices);
+            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices, rawPrices, this);
             layoutManager = new LinearLayoutManager(this);
             ScaleInAnimator animator = new ScaleInAnimator();
             animator.setChangeDuration(2000);
@@ -162,6 +164,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         } else {
             llErrorMsg.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void goToCoinDetails(String coinTag, String coinName) {
+        Bundle extras = new Bundle();
+        extras.putString(Constants.COIN_TAG, coinTag);
+        extras.putString(Constants.COIN_NAME, coinName);
+        Intent intent = CoinDetailsActivity.getIntent(this, extras);
+        startActivity(intent);
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 
     @OnClick(R.id.llErrorMsg)

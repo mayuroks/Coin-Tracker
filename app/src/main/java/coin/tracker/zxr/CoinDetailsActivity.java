@@ -70,7 +70,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_detail);
-        overridePendingTransition(R.anim.slide_right_to_left, R.anim.stay);
+//        overridePendingTransition(R.anim.right_in, R.anim.stay);
         initToolbar("Coin Details", R.drawable.ic_back_arrow);
         initUserAction("", 0, false);
 
@@ -308,6 +308,6 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.stay, R.anim.slide_left_to_right);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

@@ -10,14 +10,14 @@
 
     <TextView
         style="@style/ClickableText"
-        android:id="@+id/tvRemove"
+        android:id="@+id/tvPriceGraph"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textEnd"
         android:layout_gravity="end"
-        android:paddingTop="6dp"
+        android:paddingTop="12dp"
         android:paddingRight="20dp"
-        android:text="Remove"/>
+        android:text="Price graph"/>
 
     <RelativeLayout
         android:id="@+id/rlCoinTag"
