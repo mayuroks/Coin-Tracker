@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingTop="4dp"
-                android:text="About"
+                android:text="Don't click"
                 android:textAlignment="center"/>
         </RelativeLayout>
 
