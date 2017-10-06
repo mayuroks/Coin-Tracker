@@ -12,4 +12,5 @@
     <color name="colorChangeIncrement">#69F0AE</color>
     <color name="colorChangeDecrement">#E91E63</color>
     <color name="colorFadedText">#BBBBBB</color>
+    <color name="colorFadedTextLight">#777676</color>
 </resources>
