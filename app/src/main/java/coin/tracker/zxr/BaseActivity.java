@@ -64,13 +64,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void initToolbar(String title, int drawable) {
-        if (this instanceof AboutMe) {
+        if (this instanceof AboutMeActivity) {
             tvAbout.setVisibility(View.GONE);
         } else {
             toolbar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(BaseActivity.this, AboutMe.class));
+                    startActivity(new Intent(BaseActivity.this, AboutMeActivity.class));
                     overridePendingTransition(R.anim.slide_from_bottom, R.anim.stay);
                 }
             });

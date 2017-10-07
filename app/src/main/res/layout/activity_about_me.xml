@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="coin.tracker.zxr.AboutMe">
+    tools:context="coin.tracker.zxr.AboutMeActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_top"
-        android:scrollbars="none" >
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true" >
+
             <TextView
-                style="@style/HeaderText1"
                 android:id="@+id/tvAppName"
+                style="@style/HeaderText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top"
@@ -27,43 +27,69 @@
                 tools:text="Coin Tracker" />
 
             <TextView
-                style="@style/HeaderRegularText1"
                 android:id="@+id/tvBy"
+                style="@style/HeaderRegularText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tvAppName"
                 android:layout_alignBottom="@+id/tvAppName"
-                android:paddingLeft="8dp"
                 android:layout_marginTop="@dimen/margin_top"
+                android:layout_toRightOf="@id/tvAppName"
                 android:alpha="1"
+                android:paddingLeft="8dp"
                 tools:text="by" />
 
-            <TextView
-                style="@style/HeaderText2"
-                android:id="@+id/tvName"
-                android:layout_below="@+id/tvAppName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:alpha="1"
-                tools:text="Mayur Rokade" />
-
-            <ImageView
-                android:id="@+id/ivMayurRokade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvName"
-                android:layout_marginTop="@dimen/margin_top"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:id="@+id/tvDescription"
-                style="@style/XXNormalText"
-                android:layout_below="@id/ivMayurRokade"
-                android:layout_marginTop="@dimen/margin_top"
+            <RelativeLayout
+                android:id="@+id/rlAboutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Lorem Ipsum"/>
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/tvBy"
+                android:alpha="0"
+                tools:alpha="1">
+
+                <ImageView
+                    android:id="@+id/ivMayurRokade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:src="@drawable/dev_mayur_rokade" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left"
+                    android:layout_toRightOf="@id/ivMayurRokade"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/HeaderText1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mayur"
+                        android:textSize="40sp"/>
+
+                    <TextView
+                        android:id="@+id/tvLastName"
+                        style="@style/HeaderText1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Rokade"
+                        android:textSize="40sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvAboutMe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_below="@+id/rlAboutHeader">
+
+            </android.support.v7.widget.RecyclerView>
+
         </RelativeLayout>
     </ScrollView>
 
