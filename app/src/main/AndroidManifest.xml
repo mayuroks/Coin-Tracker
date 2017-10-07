@@ -36,7 +36,7 @@
         <activity
             android:name=".CoinDetailsActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".AboutMeActivity"
+        <activity android:name=".about.AboutMeActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

@@ -1,16 +1,21 @@
-package coin.tracker.zxr;
+package coin.tracker.zxr.about;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
+import coin.tracker.zxr.BaseActivity;
+import coin.tracker.zxr.R;
+import coin.tracker.zxr.models.AboutItem;
 
 public class AboutMeActivity extends BaseActivity {
     
@@ -25,6 +30,12 @@ public class AboutMeActivity extends BaseActivity {
 
     @BindView(R.id.rlAboutHeader)
     RelativeLayout rlAboutHeader;
+
+    @BindView(R.id.rvAboutMe)
+    RecyclerView rvAboutMe;
+
+    LinearLayoutManager layoutManager;
+    AboutMeAdapter aboutMeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +134,7 @@ public class AboutMeActivity extends BaseActivity {
                 tvAppName.setVisibility(View.GONE);
                 tvBy.setAlpha(0);
                 tvBy.setVisibility(View.GONE);
+                setupAboutMe();
             }
 
             @Override
@@ -130,5 +142,19 @@ public class AboutMeActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void setupAboutMe() {
+        ArrayList<AboutItem> aboutItems = new ArrayList<>();
+        aboutItems.add(new AboutItem("Sr. Android Developer", "5+ apps on Play Store"));
+        aboutItems.add(new AboutItem("IIT Roorkee", "B.Tech, CSE"));
+        aboutItems.add(new AboutItem("Servify", "Android Team Lead"));
+        aboutItems.add(new AboutItem("LinkedIn", "SRE - DevOps"));
+        aboutItems.add(new AboutItem("Directi", "Operations Engineer - DevOps"));
+
+        aboutMeAdapter = new AboutMeAdapter(aboutItems);
+        layoutManager = new LinearLayoutManager(this);
+        rvAboutMe.setAdapter(aboutMeAdapter);
+        rvAboutMe.setLayoutManager(layoutManager);
     }
 }

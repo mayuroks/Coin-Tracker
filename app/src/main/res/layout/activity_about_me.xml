@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="coin.tracker.zxr.AboutMeActivity">
+    tools:context="coin.tracker.zxr.about.AboutMeActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_top"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:nestedScrollingEnabled="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,7 +30,7 @@
 
             <TextView
                 android:id="@+id/tvBy"
-                style="@style/HeaderRegularText1"
+                style="@style/HeaderTextRegularFaded1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tvAppName"
@@ -42,7 +44,7 @@
                 android:id="@+id/rlAboutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_below="@id/tvBy"
                 android:alpha="0"
                 tools:alpha="1">
@@ -64,7 +66,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/HeaderText1"
+                        style="@style/HeaderTextRegular1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mayur"
@@ -72,7 +74,7 @@
 
                     <TextView
                         android:id="@+id/tvLastName"
-                        style="@style/HeaderText1"
+                        style="@style/HeaderTextRegular1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -85,8 +87,10 @@
                 android:id="@+id/rvAboutMe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top"
-                android:layout_below="@+id/rlAboutHeader">
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/rlAboutHeader"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_about_me">
 
             </android.support.v7.widget.RecyclerView>
 

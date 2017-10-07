@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import coin.tracker.zxr.about.AboutMeActivity;
 import coin.tracker.zxr.webservice.APIService;
 import coin.tracker.zxr.webservice.RestClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
