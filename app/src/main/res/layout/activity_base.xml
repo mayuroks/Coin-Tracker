@@ -15,18 +15,21 @@
         android:background="@color/colorPrimaryLight"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:contentInsetStart="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
             <ImageView
                 android:id="@+id/ivToolbarImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:src="@drawable/ic_back_arrow"/>
 
             <TextView
@@ -35,7 +38,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:paddingLeft="20dp"
                 android:text="Toolbar"
+                android:textAlignment="center"/>
+
+            <TextView
+                style="@style/ClickableText"
+                android:id="@+id/tvAbout"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="4dp"
+                android:text="Don't click"
                 android:textAlignment="center"/>
         </RelativeLayout>
 

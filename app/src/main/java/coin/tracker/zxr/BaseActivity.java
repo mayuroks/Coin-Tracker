@@ -1,6 +1,7 @@
 package coin.tracker.zxr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import coin.tracker.zxr.about.AboutMeActivity;
 import coin.tracker.zxr.webservice.APIService;
 import coin.tracker.zxr.webservice.RestClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -25,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
     private TextView tvActionDescription;
     private RelativeLayout rlUserAction;
     private Toolbar toolbar;
-    private TextView tvToolbarTitle;
+    private TextView tvToolbarTitle, tvAbout;
     private RelativeLayout baseLayout;
     public RelativeLayout rlContainer;
     private ImageView ivToolbarImage;
@@ -46,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         tvToolbarTitle = (TextView) findViewById(R.id.tvToolbarTitle);
         tvActionButton = (TextView) findViewById(R.id.tvActionButton);
         tvActionDescription = (TextView) findViewById(R.id.tvActionDescription);
+        tvAbout = (TextView) findViewById(R.id.tvAbout);
         rlUserAction = (RelativeLayout) findViewById(R.id.rlUserAction);
         rlContainer = (RelativeLayout) findViewById(R.id.rlContainer);
         ivToolbarImage = (ImageView) findViewById(R.id.ivToolbarImage);
@@ -62,6 +65,18 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void initToolbar(String title, int drawable) {
+        if (this instanceof AboutMeActivity) {
+            tvAbout.setVisibility(View.GONE);
+        } else {
+            toolbar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(BaseActivity.this, AboutMeActivity.class));
+                    overridePendingTransition(R.anim.slide_from_bottom, R.anim.stay);
+                }
+            });
+        }
+
         tvToolbarTitle.setText(title);
         if (drawable != 0) {
             Drawable drawable1 = ContextCompat.getDrawable(this, drawable);

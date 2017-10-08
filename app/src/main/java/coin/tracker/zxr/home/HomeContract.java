@@ -20,6 +20,8 @@ public interface HomeContract {
 
         void showErrorMsg(boolean showError);
 
+        void goToCoinDetails(String coinTag, String coinName);
+
     }
 
     interface Presenter extends BasePresenter {

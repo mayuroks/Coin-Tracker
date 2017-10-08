@@ -1,8 +1,9 @@
 package coin.tracker.zxr;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +19,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.orhanobut.logger.Logger;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -26,7 +26,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -34,7 +33,7 @@ import coin.tracker.zxr.common.BaseView;
 import coin.tracker.zxr.data.Repository;
 import coin.tracker.zxr.models.PriceDetailsResponse;
 import coin.tracker.zxr.models.PricePoint;
-import coin.tracker.zxr.utils.CoinHelper;
+import coin.tracker.zxr.utils.Constants;
 import coin.tracker.zxr.utils.Injection;
 import coin.tracker.zxr.utils.TextUtils;
 import io.reactivex.Observer;
@@ -59,19 +58,27 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     AVLoadingIndicatorView aviLoader;
 
     String coinTag, coinName;
+    static String monthPrefix = "";
+
+    public static Intent getIntent(Context context, Bundle extras) {
+        Intent intent = new Intent(context, CoinDetailsActivity.class);
+        intent.putExtras(extras);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_detail);
+//        overridePendingTransition(R.anim.right_in, R.anim.stay);
         initToolbar("Coin Details", R.drawable.ic_back_arrow);
         initUserAction("", 0, false);
 
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null) {
-            coinTag = bundle.getString("coinTag", "");
-            coinName = bundle.getString("coinName", "");
+            coinTag = bundle.getString(Constants.COIN_TAG, "");
+            coinName = bundle.getString(Constants.COIN_NAME, "");
         }
 
         tvCoinName.setText(coinName);
@@ -105,6 +112,9 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         x.setAxisLineColor(Color.TRANSPARENT);
         x.setDrawGridLines(false);
         x.setAxisLineWidth(0f);
+        x.setGranularity(1f);
+        x.setValueFormatter(new MyXAxisValueFormatter());
+        x.setLabelRotationAngle(315);
 
         YAxis y = mChart.getAxisRight();
 //        y.setTypeface();
@@ -135,9 +145,11 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         int month = calendar.get(Calendar.MONTH);
 
         SimpleDateFormat format = new SimpleDateFormat("MMMM, yyyy");
-        String monthStr = format.format(calendar.getTime());
-        Logger.i("PRICEPOINT " + monthStr);
-        tvPriceTimeline.setText("Price - " + monthStr);
+        SimpleDateFormat format1 = new SimpleDateFormat("MMM");
+        String monthYearStr = format.format(calendar.getTime());
+        monthPrefix = format1.format(calendar.getTime());
+        Logger.i("PRICEPOINT " + monthYearStr);
+        tvPriceTimeline.setText("Price - " + monthYearStr);
 
         PricePoint latestPoint = pricePoints.get(pricePoints.size() - 1);
         DecimalFormat decimalFormat = new DecimalFormat(TextUtils.IN_FORMAT);
@@ -145,7 +157,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         tvPrice.setText(getString(R.string.rupee_symbol) + " " + latestPrice);
 
         float rightOffset = getRightOffset(Integer.toString((int) latestPoint.getClose()));
-        mChart.setViewPortOffsets(6, 30, rightOffset, 60);
+        mChart.setViewPortOffsets(18, 30, rightOffset, 60);
 
         for (PricePoint point : pricePoints) {
             calendar.setTimeInMillis(point.getTime() * 1000);
@@ -273,12 +285,29 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         private DecimalFormat mFormat;
 
         public MyYAxisValueFormatter() {
-            mFormat = new DecimalFormat(TextUtils.IN_FORMAT);
+            mFormat = new DecimalFormat(TextUtils.IN_FORMAT_ROUNDED_OFF);
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
             return mFormat.format(value);
         }
+    }
+
+    class MyXAxisValueFormatter implements IAxisValueFormatter {
+
+        public MyXAxisValueFormatter() {
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return monthPrefix + ", " + Integer.toString((int) value);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

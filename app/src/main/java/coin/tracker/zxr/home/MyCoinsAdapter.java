@@ -1,12 +1,9 @@
 package coin.tracker.zxr.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 
-import coin.tracker.zxr.BaseActivity;
-import coin.tracker.zxr.CoinDetailsActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.models.DisplayPrice;
 import android.view.LayoutInflater;
@@ -34,13 +31,16 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
     ArrayList<RawPrice> rawPrices;
     Context context;
     DecimalFormat format = new DecimalFormat(TextUtils.IN_FORMAT);
+    HomeContract.View view;
 
     public MyCoinsAdapter(Context context,
                           ArrayList<DisplayPrice> displayPrices,
-                          ArrayList<RawPrice> rawPrices) {
+                          ArrayList<RawPrice> rawPrices,
+                          HomeContract.View view) {
         this.displayPrices = displayPrices;
         this.rawPrices = rawPrices;
         this.context = context;
+        this.view = view;
     }
 
     @Override
@@ -96,22 +96,21 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
             public void onClick(View v) {
                 String coinName = CoinHelper.getInstance()
                         .getCoinName(rawPrice.getFROMSYMBOL());
-                Intent intent = new Intent(context, CoinDetailsActivity.class);
-                intent.putExtra("coinTag", rawPrice.getFROMSYMBOL());
-                intent.putExtra("coinName", coinName);
 
-                context.startActivity(intent);
+                if (view != null) {
+                    view.goToCoinDetails(rawPrice.getFROMSYMBOL(), coinName);
+                }
             }
         });
 
-        holder.tvRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String coinTag = rawPrice.getFROMSYMBOL();
-                CoinHelper.getInstance().deleteUserCoin(coinTag);
-                remove(holder.getAdapterPosition());
-            }
-        });
+//        holder.tvPriceGraph.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String coinTag = rawPrice.getFROMSYMBOL();
+//                CoinHelper.getInstance().deleteUserCoin(coinTag);
+//                remove(holder.getAdapterPosition());
+//            }
+//        });
     }
 
     @Override
@@ -136,8 +135,8 @@ public class MyCoinsAdapter extends RecyclerView.Adapter<MyCoinsAdapter.ViewHold
         @BindView(R.id.rlCoinItem)
         RelativeLayout rlCoinItem;
 
-        @BindView(R.id.tvRemove)
-        TextView tvRemove;
+        @BindView(R.id.tvPriceGraph)
+        TextView tvPriceGraph;
 
         public ViewHolder(View itemView) {
             super(itemView);

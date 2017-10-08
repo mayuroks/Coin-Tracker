@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.tapadoo.alerter.Alerter;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -20,12 +19,14 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.OnClick;
 import coin.tracker.zxr.BaseActivity;
+import coin.tracker.zxr.CoinDetailsActivity;
 import coin.tracker.zxr.R;
 import coin.tracker.zxr.models.DisplayPrice;
 import coin.tracker.zxr.models.PriceMultiFull;
 import coin.tracker.zxr.models.RawPrice;
 import coin.tracker.zxr.search.SearchCoinsActivity;
 import coin.tracker.zxr.utils.CoinHelper;
+import coin.tracker.zxr.utils.Constants;
 import coin.tracker.zxr.utils.FontManager;
 import coin.tracker.zxr.utils.Injection;
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
@@ -73,16 +74,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void onResume() {
         super.onResume();
-        if (isCoinAdded) {
-            Alerter.create(this)
-                    .setTitle("Your coin(s) have been added")
-                    .setBackgroundColorRes(R.color.colorAccent)
-                    .setIcon(R.drawable.alerter_ic_face)
-                    .setDuration(2000)
-                    .show();
-            isCoinAdded = false;
-        }
-
         /*
         * If saved coin and rvCoinCount
         * is not the same refresh the UI
@@ -127,11 +118,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                         R.drawable.bg_rv_separator));
 
         if (display.size() > 0) {
-            Logger.i("display size > 0");
             displayPrices = priceMultiFull.getDisplayPrices();
             rawPrices = priceMultiFull.getRawPrices();
 
-            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices, rawPrices);
+            myCoinsAdapter = new MyCoinsAdapter(this, displayPrices, rawPrices, this);
             layoutManager = new LinearLayoutManager(this);
             ScaleInAnimator animator = new ScaleInAnimator();
             animator.setChangeDuration(2000);
@@ -145,6 +135,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 rvMyCoins.addItemDecoration(dividerItemDecoration);
             } else {
                 isRefreshUserCoins = false;
+            }
+
+            if (isCoinAdded) {
+                Alerter.create(this)
+                        .setTitle("Your coin(s) have been added")
+                        .setBackgroundColorRes(R.color.colorPositiveNotification)
+                        .setIcon(R.drawable.ic_thumbs_up_o)
+                        .setDuration(2000)
+                        .show();
+                isCoinAdded = false;
             }
         } else {
             // TODO show meaningful error
@@ -164,6 +164,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         } else {
             llErrorMsg.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void goToCoinDetails(String coinTag, String coinName) {
+        Bundle extras = new Bundle();
+        extras.putString(Constants.COIN_TAG, coinTag);
+        extras.putString(Constants.COIN_NAME, coinName);
+        Intent intent = CoinDetailsActivity.getIntent(this, extras);
+        startActivity(intent);
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 
     @OnClick(R.id.llErrorMsg)

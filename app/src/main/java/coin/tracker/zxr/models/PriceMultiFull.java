@@ -37,18 +37,12 @@ public class PriceMultiFull {
 
         for (String coinTag : userCoins) {
             HashMap h = displayHash.get(coinTag);
-            if (h.containsKey("INR")) {
+
+            if (h != null && h.containsKey("INR")) {
                 DisplayPrice displayPrice = (DisplayPrice) h.get("INR");
                 displayPrices.add(displayPrice);
             }
         }
-
-//        for (HashMap h : displayHash.values()) {
-//            if (h.containsKey("INR")) {
-//                DisplayPrice displayPrice = (DisplayPrice) h.get("INR");
-//                displayPrices.add(displayPrice);
-//            }
-//        }
 
         return displayPrices;
     }
@@ -60,18 +54,11 @@ public class PriceMultiFull {
 
         for (String coinTag : userCoins) {
             HashMap h = rawHash.get(coinTag);
-            if (h.containsKey("INR")) {
+            if (h != null && h.containsKey("INR")) {
                 RawPrice rawPrice = (RawPrice) h.get("INR");
                 rawPrices.add(rawPrice);
             }
         }
-
-//        for (HashMap h : rawHash.values()) {
-//            if (h.containsKey("INR")) {
-//                RawPrice rawPrice = (RawPrice) h.get("INR");
-//                rawPrices.add(rawPrice);
-//            }
-//        }
 
         return rawPrices;
     }
