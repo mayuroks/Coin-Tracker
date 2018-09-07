@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "coin.tracker.zxr"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 4
         versionName "1.0.3"
         multiDexEnabled true
@@ -21,33 +21,32 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
-    compile 'com.robinhood.spark:spark:1.1.2'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.orhanobut:logger:2.1.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    compile 'com.android.support:support-core-utils:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.orhanobut:hawk:2.0.1'
-    compile 'com.github.pwittchen:infinitescroll:0.0.1'
-    compile 'com.wang.avi:library:2.1.3'
-    compile 'jp.wasabeef:recyclerview-animators:2.2.7'
-    compile 'com.tapadoo.android:alerter:2.0.1'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.0.1'
+    implementation 'com.android.support:support-core-utils:27.0.1'
+    implementation 'com.android.support:design:27.0.1'
+    implementation 'com.android.support:recyclerview-v7:27.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'com.robinhood.spark:spark:1.1.2'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.orhanobut:logger:2.1.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.orhanobut:hawk:2.0.1'
+    implementation 'com.github.pwittchen:infinitescroll:0.0.1'
+    implementation 'com.wang.avi:library:2.1.3'
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.6'
+    implementation 'com.tapadoo.android:alerter:2.0.1'
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
