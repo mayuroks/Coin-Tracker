@@ -157,7 +157,7 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
         tvPrice.setText(getString(R.string.rupee_symbol) + " " + latestPrice);
 
         float rightOffset = getRightOffset(Integer.toString((int) latestPoint.getClose()));
-        mChart.setViewPortOffsets(18, 30, rightOffset, 60);
+        mChart.setViewPortOffsets(getLeftOffset(), 30, rightOffset, getBottomOffset());
 
         for (PricePoint point : pricePoints) {
             calendar.setTimeInMillis(point.getTime() * 1000);
@@ -276,9 +276,19 @@ public class CoinDetailsActivity extends BaseActivity implements BaseView {
     }
 
     private float getRightOffset(String price) {
+        float density = getResources().getDisplayMetrics().density;
         Logger.i("OFFSET " + price.length() * 20);
         Logger.i("OFFSET " + price);
-        return price.length() * 20;
+        return price.length() * 8 * density;
+    }
+
+    private float getBottomOffset() {
+        float density = getResources().getDisplayMetrics().density;
+        return density * 50;
+    }
+
+    private float getLeftOffset() {
+        return getResources().getDisplayMetrics().density * 10;
     }
 
     class MyYAxisValueFormatter implements IAxisValueFormatter {
